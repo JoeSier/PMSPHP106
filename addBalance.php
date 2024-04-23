@@ -15,29 +15,29 @@ if (isset($_SESSION["user_id"])) {
 
 $is_invalid = false;
 
-//if ($_SERVER["REQUEST_METHOD"] === "POST") {
-//    $credit = $_POST['Credit']; // Assuming the value comes from a POST request
-//    $userID = $_SESSION['UserID'];
-//}
-//
-//    $mysqli = require __DIR__ . "/database.php";
-//    $sql = sprintf("UPDATE account SET Credit = :credit WHERE UserID = :userID",
-//        $mysqli->real_escape_string($_POST["license"]));
-//
-//$stmt = $pdo->prepare($sql);
-//    $stmt->bindParam(':credit', $credit);
-//$stmt->bindParam(':userID', $userID);
-//
-//
-//    $result = $mysqli->query($sql);
-//
-//    $car = $result->fetch_assoc();
-//
-//
-//    if ($car) {
-//        exit;
-//
-//    }
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $credit = $_POST['Credit']; // Assuming the value comes from a POST request
+    $userID = $_SESSION['UserID'];
+}
+
+    $mysqli = require __DIR__ . "/database.php";
+    $sql = sprintf("UPDATE account SET Credit = :credit WHERE UserID = :userID",
+        $mysqli->real_escape_string($_POST["license"]));
+
+$stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':credit', $credit);
+$stmt->bindParam(':userID', $userID);
+
+
+    $result = $mysqli->query($sql);
+
+    $car = $result->fetch_assoc();
+
+
+    if ($car) {
+        exit;
+
+    }
 
 
     $is_invalid = true;
@@ -60,7 +60,7 @@ $is_invalid = false;
 
 <form method="post">
     <label for="credit">Enter Amount:</label>
-    <input type="text" name="credit" id="credit">
+    <input type="number" name="credit" id="credit">
     <button>Add funds</button>
 </form>
 

@@ -18,8 +18,6 @@ if (isset($_SESSION["user_id"])) {
 ?>
 
 
-
-
 <body>
 
 
@@ -46,8 +44,9 @@ if (isset($_SESSION["user_id"])) {
 
     <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
         <h1>Admin Dashboard</h1>
-
-
+<p>manage parking assignment</p>
+    <p>display parking lot data</p>
+<p>display all accounts</p>
     <?php else: ?>
         <p>couldn't detect if admin</p>
     <?php endif; ?>
