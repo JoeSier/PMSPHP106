@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2024 at 06:08 AM
+-- Generation Time: Apr 23, 2024 at 09:45 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,6 +43,9 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
+INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`) VALUES
+(6, 0, 'test', 'test', 61.00, 'test', '$2y$10$h7qIIxzp6GclzfwetFXOKeyf9OYRXQMcPGXnrhO0FkAv5OrS9m5QO', 'test@gmail.com', '32434234232');
+
 -- --------------------------------------------------------
 
 --
@@ -52,7 +55,7 @@ CREATE TABLE `account` (
 CREATE TABLE `booking` (
   `BookingID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `ParkingSpaceID` varchar(5) NOT NULL,
+  `ParkingSpaceID` int(50) NOT NULL,
   `LicensePlate` varchar(7) NOT NULL,
   `BookingCost` decimal(10,2) NOT NULL,
   `timeStart` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -107,7 +110,7 @@ ALTER TABLE `car`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `booking`
