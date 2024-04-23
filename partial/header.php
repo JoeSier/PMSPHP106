@@ -28,8 +28,6 @@ if (isset($_SESSION["UserID"])) {
     <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
     <li><a href="index.php">Home</a></li>
     <li><a href="dashboards.php">Your Dashboard</a></a></li>
-    <li></li>
-    <li></li>
     <li><a href="logout.php">Log out</a></li>
     </ul>
 
