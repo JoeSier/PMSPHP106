@@ -2,7 +2,8 @@
 include('partial/header.php');
 
 $sel = "SELECT * FROM account";
-$res = $mysqli->query($sel);
+$mysqlj = require __DIR__ . "/database.php";
+$res = $mysqlj->query($sel);
 if ($res) {
     // Fetch all rows from the result set
     $accounts = [];
@@ -20,7 +21,7 @@ if ($res) {
     }
 } else {
     // Handle query failure
-    echo "Query failed: " . $mysqli->error;
+    echo "Query failed: " . $mysqlj->error;
 }
 ?>
 
