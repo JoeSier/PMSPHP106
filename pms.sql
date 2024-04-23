@@ -43,9 +43,6 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`) VALUES
-(6, 0, 'test', 'test', 61.00, 'test', '$2y$10$h7qIIxzp6GclzfwetFXOKeyf9OYRXQMcPGXnrhO0FkAv5OrS9m5QO', 'test@gmail.com', '32434234232');
-
 -- --------------------------------------------------------
 
 --
