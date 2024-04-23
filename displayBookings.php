@@ -1,19 +1,6 @@
 <?php
-include('../partial/header.php');
-session_start();
+include('partial/header.php');
 
-if (isset($_SESSION["UserID"])) {
-
-    $mysqli = require __DIR__ . "/database.php";
-
-    $sql = "SELECT * FROM account
-            WHERE UserID = {$_SESSION["UserID"]}";
-
-    $result = $mysqli->query($sql);
-
-    $user = $result->fetch_assoc();
-
-}
 $sel = "SELECT * FROM account";
 $res = $mysqli->query($sel);
 if ($res) {
