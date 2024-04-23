@@ -1,8 +1,8 @@
 <?php
-
+include('partial/header.php');
 session_start();
 
-if (isset($_SESSION["user_id"])) {
+if (isset($_SESSION["UserID"])) {
     
     $mysqli = require __DIR__ . "/database.php";
     
@@ -15,27 +15,30 @@ if (isset($_SESSION["user_id"])) {
 }
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-</head>
 <body>
-    
+
     <h1>Home</h1>
     
     <?php if (isset($user)): ?>
         
         <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
-        
-        <p><a href="logout.php">Log out</a></p>
+        <li><a href="dashboards.php">Your Dashboard</a></a></li>
+        <li></li>
+        <li></li>
+        <li><a href="logout.php">Log out</a></li>
+        </ul>
+
         
     <?php else: ?>
+
+
+        <li><a href="login.php">Log in</a> </li>
+        <li><a href="signup.html">sign up</a></li>
+        <li></li>
+        <li></li>
+        </ul>
         
-        <p><a href="login.php">Log in</a> or <a href="signup.html">sign up</a></p>
-        
+
     <?php endif; ?>
     
 </body>
