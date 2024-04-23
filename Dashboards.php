@@ -23,7 +23,7 @@ include('partial/header.php');
 
     <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
         <h1>Admin Dashboard</h1>
-<p>manage parking assignment</p>
+        <p><a href="displayCars.php">See All Cars</a></p>
         <p><a href="displayBookings.php">See All Bookings</a></p>
         <p><a href="displayAllAccounts.php">See All Accounts</a></p>
     <?php else: ?>

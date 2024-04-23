@@ -1,7 +1,7 @@
 <?php
 include('partial/header.php');
 
-$sel = "SELECT * FROM booking";
+$sel = "SELECT * FROM car";
 $res = $mysqli->query($sel);
 if ($res) {
     // Fetch all rows from the result set
@@ -24,6 +24,6 @@ if ($res) {
 }
 ?>
 
-<body>
+    <body>
 
-</body>
+    </body><?php
