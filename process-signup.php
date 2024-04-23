@@ -83,7 +83,7 @@ $phonenumber = $_POST["phonenumber"] ?? null;
 if (!$firstName || !$lastName || !$username || !$email || !$phonenumber) {
     die("Missing required fields");
 }
-
+//change to password hash when we use hashing
 $stmt->bind_param("ssssss", $firstName, $lastName, $username, $password_hash, $email, $phonenumber);
 
 

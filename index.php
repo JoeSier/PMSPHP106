@@ -6,8 +6,8 @@ if (isset($_SESSION["user_id"])) {
     
     $mysqli = require __DIR__ . "/database.php";
     
-    $sql = "SELECT * FROM user
-            WHERE id = {$_SESSION["user_id"]}";
+    $sql = "SELECT * FROM account
+            WHERE UserID = {$_SESSION["UserID"]}";
 
     $result = $mysqli->query($sql);
     
@@ -28,7 +28,7 @@ if (isset($_SESSION["user_id"])) {
     
     <?php if (isset($user)): ?>
         
-        <p>Hello <?= htmlspecialchars($user["name"]) ?></p>
+        <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
         
         <p><a href="logout.php">Log out</a></p>
         
