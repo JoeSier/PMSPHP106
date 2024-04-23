@@ -5,14 +5,12 @@ if (isset($_SESSION["UserID"])) {
 
     $mysqli = require __DIR__ . "/database.php";
 
-    $sql = "SELECT * FROM account
-            WHERE UserID = {$_SESSION["UserID"]}";
+    $sql = "SELECT * FROM account WHERE UserID = {$_SESSION["UserID"]}";
 
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
 }
-
 ?>
 
 <!DOCTYPE html>
