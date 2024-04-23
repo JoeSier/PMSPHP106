@@ -1,5 +1,5 @@
 <?php
-
+include('../partial/header.php');
 session_start();
 
 if (isset($_SESSION["user_id"])) {
@@ -15,18 +15,12 @@ if (isset($_SESSION["user_id"])) {
 }
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Dashboard</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-</head>
+
 <body>
 
 <h1>Manage your cars</h1>
     <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
-    <p><a href="logout.php">Log out</a></p>
+    <p><a href="../logout.php">Log out</a></p>
 <p><a href="addCar.php">add Cars</a></p>
 <p><a href="removeCars.php">remove Cars</a></p>
 

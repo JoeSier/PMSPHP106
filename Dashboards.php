@@ -20,8 +20,6 @@ if (isset($_SESSION["UserID"])) {
 
 
 <body>
-
-
 <?php if (isset($user)): ?>
 <ul>
     <li><a href="index.php">Home</a></li>
@@ -29,6 +27,7 @@ if (isset($_SESSION["UserID"])) {
     <li></li>
     <li><a href="logout.php">Log out</a></li>
 </ul>
+<p>0 is not admin anything else is admin</p>
     <p>Admin value: <?= htmlspecialchars($user["IsAdmin"]) ?></p>
     <?php if (htmlspecialchars($user["IsAdmin"]) == 0): ?>
         <h1>User Dashboard</h1>
@@ -40,14 +39,14 @@ if (isset($_SESSION["UserID"])) {
 
         <p>current balance: <?= htmlspecialchars($user["Credit"]) ?></p>
 
-        <p><a href="addBalance.php">Add Balance</a></p>
-        <p><a href="manageCars.php">Manage Cars</a></p>
+        <p><a href="dashboards-sub/addBalance.php">Add Balance</a></p>
+        <p><a href="dashboards-sub/manageCars.php">Manage Cars</a></p>
 
     <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
         <h1>Admin Dashboard</h1>
 <p>manage parking assignment</p>
     <p>display parking lot data</p>
-<p>display all accounts</p>
+        <p><a href="dashboards-sub/displayAllAccounts.php">See All Accounts</a></p>
     <?php else: ?>
         <p>couldn't detect if admin</p>
     <?php endif; ?>
