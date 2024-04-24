@@ -17,45 +17,53 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $mysqli->close();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
+// This gets all of the free parking spaces at the time entered
+        $sel = "SELECT ParkingSpaceID,timeStart,timeEnd,LicensePlate FROM booking";
+        $mysqlj = require __DIR__ . "/database.php";
+        $success = $mysqlj->query($sel);
 
-    $sel = "SELECT ParkingSpaceID,timeStart,timeEnd,LicensePlate FROM booking";
-    $mysqlj = require __DIR__ . "/database.php";
-    $success = $mysqlj->query($sel);
+        if (!$success) {
+            echo "Error retrieving parking spaces: " . $mysqlj->error;
+            exit;
+        }
+        $start_date = $_POST['start_date'];
+        $start_time = $_POST['start_time'];
+        $end_date = $_POST['end_date'];
+        $end_time = $_POST['end_time'];
 
-    if (!$success) {
-        echo "Error retrieving parking spaces: " . $mysqlj->error;
-        exit;
-    }
-    $start_date = $_POST['start_date'];
-    $start_time = $_POST['start_time'];
-    $end_date = $_POST['end_date'];
-    $end_time = $_POST['end_time'];
+        //Convert into timestamps
+        $desiredStart = strtotime("$start_date $start_time");
+        $desiredEnd = strtotime("$end_date $end_time");
 
-    //Convert into timestamps
-    $desiredStart = strtotime("$start_date $start_time");
-    $desiredEnd = strtotime("$end_date $end_time");
+        if ($desiredStart >= $desiredEnd) {
+            echo "End time must be after start time.";
+            exit;
+        }
 
-    if ($desiredStart >= $desiredEnd) {
-        echo "End time must be after start time.";
-        exit;
-    }
-
-    $occupiedSpaces = [];
-    $occupiedLicensePlates = [];
-    while ($row = $success->fetch_assoc()) {
-        $parkingSpaceID = $row['ParkingSpaceID'];
-        $licensePlate = $row['LicensePlate'];
-        $timeStart = strtotime($row['timeStart']);
-        $timeEnd = strtotime($row['timeEnd']);
+        $occupiedSpaces = [];
+        $occupiedLicensePlates = [];
+        while ($row = $success->fetch_assoc()) {
+            $parkingSpaceID = $row['ParkingSpaceID'];
+            $licensePlate = $row['LicensePlate'];
+            $timeStart = strtotime($row['timeStart']);
+            $timeEnd = strtotime($row['timeEnd']);
 
 
-        // Check if the requested time overlaps with existing bookings
-        if (
-            ($desiredStart < $timeEnd && $desiredEnd > $timeStart) // Overlap condition
-        ) {
-            $occupiedSpaces[] = $parkingSpaceID; // Collect overlapping spaces
-            $occupiedLicensePlates[] = $licensePlate; // Collect overlapping license plates
+            // Check if the requested time overlaps with existing bookings
+            if (
+                ($desiredStart < $timeEnd && $desiredEnd > $timeStart) // Overlap condition
+            ) {
+                $occupiedSpaces[] = $parkingSpaceID; // Collect overlapping spaces
+                $occupiedLicensePlates[] = $licensePlate; // Collect overlapping license plates
+            }
+        }
+
+    // Determine free spaces
+    $freeSpaces = [];
+    for ($i = 1; $i <= 50; $i++) {
+        if (!in_array($i, $occupiedSpaces)) {
+            $freeSpaces[] = $i;
         }
     }
 
@@ -63,69 +71,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 // Check if the given license plate is already booked for the requested time
     if (in_array($license, $occupiedLicensePlates)) {
         die("Car already booked for this time");
-    } else {
-
-// Sort occupied spaces in ascending order
-        sort($occupiedSpaces);
-
-        $freeParkingSpace = null;
-        for ($i = 1; $i <= 50; $i++) {
-            if (!in_array($i, $occupiedSpaces)) { // Check if the space is free
-                $freeParkingSpace = $i; // Found a free space
-                break;
-            }
-        }
-
-        if ($freeParkingSpace !== null) {
-            echo "First free parking space is: " . $freeParkingSpace;
-        } else {
-            die("No free parking spaces found from 1 to 50.");
-        }
-
-
-        $credit = $user["Credit"];
-        $userID = $_SESSION['UserID'];
-        $desiredStartFormatted = date('Y-m-d H:i:s', $desiredStart);
-        $desiredEndFormatted = date('Y-m-d H:i:s', $desiredEnd);
-        print_r($desiredStartFormatted);
-        print_r($desiredEndFormatted);
-
-
-        $price = $_POST['price'];
-
-        if ($credit < $price) {
-            print_r($credit);
-            print_r($price);
-            die("Not enough funds.");
-        }
-
-        $booksql = require __DIR__ . "/database.php";
-        $bookstmt = $booksql->prepare("INSERT INTO booking(
-    UserID,
-    ParkingSpaceID,
-    LicensePlate,
-    BookingCost,
-    timeStart,
-    timeEnd
-) VALUES(?,?,?,?,?,?)");
-
-        $bookstmt->bind_param("iisiss", $userID, $freeParkingSpace, $license, $price, $desiredStartFormatted, $desiredEndFormatted);
-        $success = $bookstmt->execute();
-
-        if ($success) {
-            echo "Booking added successfully!";
-        } else {
-            echo "Error adding booking: " . $booksql->error;
-        }
-        $bookstmt->close();
-        $booksql->close();
     }
+
+    // Store data in session to transition to the second form
+    $_SESSION['freeSpaces'] = $freeSpaces;
+    $_SESSION['form1_data'] = $_POST; // Store the initial form data
+
+    // Redirect to a new page with the second form
+    header("Location: booking-chooseSpace.php"); // The new page with the second form
+    exit;
+
 }
+
 ?>
 
 <body>
 <h1>Make a booking</h1>
 <form method="post" onsubmit="return validateForm()">
+    <input type="hidden" name="form_type" value="form1">
     <label for="start_date">Start Date:</label>
     <input type="date" id="start_date" name="start_date" min="<?php echo date('Y-m-d'); ?>" required><br>
 
@@ -177,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <button type="submit">Submit</button>
 </form>
+
 
 <script>
     function validateForm() {
