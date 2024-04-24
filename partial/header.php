@@ -27,6 +27,7 @@ if (isset($_SESSION["UserID"])) {
     <li><a href="index.php">Home</a></li>
     <li><a href="dashboards.php">Your Dashboard</a></a></li>
     <li><a href="logout.php">Log out</a></li>
+    <li><a href="booking.php">Book a space</a></li>
     </ul>
 
 
