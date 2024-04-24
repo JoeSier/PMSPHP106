@@ -16,6 +16,111 @@ $cars = $result->fetch_all(MYSQLI_ASSOC);
 // Close prepared statement and database connection
 $stmt->close();
 $mysqli->close();
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $sel = "SELECT ParkingSpaceID,timeStart,timeEnd,LicensePlate FROM booking";
+    $mysqlj = require __DIR__ . "/database.php";
+    $success = $mysqlj->query($sel);
+
+    if (!$success) {
+        echo "Error retrieving parking spaces: " . $mysqlj->error;
+        exit;
+    }
+    $start_date = $_POST['start_date'];
+    $start_time = $_POST['start_time'];
+    $end_date = $_POST['end_date'];
+    $end_time = $_POST['end_time'];
+
+    //Convert into timestamps
+    $desiredStart = strtotime("$start_date $start_time");
+    $desiredEnd = strtotime("$end_date $end_time");
+
+    if ($desiredStart >= $desiredEnd) {
+        echo "End time must be after start time.";
+        exit;
+    }
+
+    $occupiedSpaces = [];
+    $occupiedLicensePlates = [];
+    while ($row = $success->fetch_assoc()) {
+        $parkingSpaceID = $row['ParkingSpaceID'];
+        $licensePlate = $row['LicensePlate'];
+        $timeStart = strtotime($row['timeStart']);
+        $timeEnd = strtotime($row['timeEnd']);
+
+
+        // Check if the requested time overlaps with existing bookings
+        if (
+            ($desiredStart < $timeEnd && $desiredEnd > $timeStart) // Overlap condition
+        ) {
+            $occupiedSpaces[] = $parkingSpaceID; // Collect overlapping spaces
+            $occupiedLicensePlates[] = $licensePlate; // Collect overlapping license plates
+        }
+    }
+
+    $license = $_POST['license_plate'];
+// Check if the given license plate is already booked for the requested time
+    if (in_array($license, $occupiedLicensePlates)) {
+        die("Car already booked for this time");
+    } else {
+
+// Sort occupied spaces in ascending order
+        sort($occupiedSpaces);
+
+        $freeParkingSpace = null;
+        for ($i = 1; $i <= 50; $i++) {
+            if (!in_array($i, $occupiedSpaces)) { // Check if the space is free
+                $freeParkingSpace = $i; // Found a free space
+                break;
+            }
+        }
+
+        if ($freeParkingSpace !== null) {
+            echo "First free parking space is: " . $freeParkingSpace;
+        } else {
+            die("No free parking spaces found from 1 to 50.");
+        }
+
+
+        $credit = $user["Credit"];
+        $userID = $_SESSION['UserID'];
+        $desiredStartFormatted = date('Y-m-d H:i:s', $desiredStart);
+        $desiredEndFormatted = date('Y-m-d H:i:s', $desiredEnd);
+        print_r($desiredStartFormatted);
+        print_r($desiredEndFormatted);
+
+
+        $price = $_POST['price'];
+
+        if ($credit < $price) {
+            print_r($credit);
+            print_r($price);
+            die("Not enough funds.");
+        }
+
+        $booksql = require __DIR__ . "/database.php";
+        $bookstmt = $booksql->prepare("INSERT INTO booking(
+    UserID,
+    ParkingSpaceID,
+    LicensePlate,
+    BookingCost,
+    timeStart,
+    timeEnd
+) VALUES(?,?,?,?,?,?)");
+
+        $bookstmt->bind_param("iisiss", $userID, $freeParkingSpace, $license, $price, $desiredStartFormatted, $desiredEndFormatted);
+        $success = $bookstmt->execute();
+
+        if ($success) {
+            echo "Booking added successfully!";
+        } else {
+            echo "Error adding booking: " . $booksql->error;
+        }
+        $bookstmt->close();
+        $booksql->close();
+    }
+}
 ?>
 
 <body>
@@ -32,8 +137,10 @@ $mysqli->close();
         $end = strtotime('23:30');
         $interval = 30 * 60; // 30 minutes in seconds
 
-        for ($time = $start; $time <= $end; $time += $interval) {
-            echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
+        for ($time = $start;
+        $time <= $end;
+        $time += $interval) {
+        echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
         }
         ?>
     </select><br>
@@ -45,8 +152,10 @@ $mysqli->close();
     <select id="end_time" name="end_time" required>
         <?php
         // Generate options for 30-minute intervals from 00:00 to 23:30
-        for ($time = $start; $time <= $end; $time += $interval) {
-            echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
+        for ($time = $start;
+        $time <= $end;
+        $time += $interval) {
+        echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
         }
         ?>
     </select><br>
@@ -57,14 +166,14 @@ $mysqli->close();
         <?php
         // Populate the select field with the user's cars
         foreach ($cars as $car) {
-            // Display the car's LicensePlate
-            echo "<option value=\"" . htmlspecialchars($car["LicensePlate"]) . "\">" . htmlspecialchars($car["LicensePlate"]) . "</option>";
+        // Display the car's LicensePlate
+        echo "<option value=\"" . htmlspecialchars($car["LicensePlate"]) . "\">" . htmlspecialchars($car["LicensePlate"]) . "</option>";
         }
         ?>
     </select><br>
 
     <label for="price">Session Price:</label>
-    <input type="text" id="price" name="price" readonly required><br>
+    <input type="number" id="price" name="price" readonly required><br>
 
     <button type="submit">Submit</button>
 </form>
@@ -117,7 +226,9 @@ $mysqli->close();
             }
 
             // Update the price input field
-            document.getElementById('price').value = "£" + price.toFixed(2);
+            document.getElementById('price').value =
+                // "£" +
+                price.toFixed(2);
         }
     }
 
