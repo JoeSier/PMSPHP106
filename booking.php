@@ -138,9 +138,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $interval = 30 * 60; // 30 minutes in seconds
 
         for ($time = $start;
-        $time <= $end;
-        $time += $interval) {
-        echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
+             $time <= $end;
+             $time += $interval) {
+            echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
         }
         ?>
     </select><br>
@@ -153,9 +153,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php
         // Generate options for 30-minute intervals from 00:00 to 23:30
         for ($time = $start;
-        $time <= $end;
-        $time += $interval) {
-        echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
+             $time <= $end;
+             $time += $interval) {
+            echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
         }
         ?>
     </select><br>
@@ -166,8 +166,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php
         // Populate the select field with the user's cars
         foreach ($cars as $car) {
-        // Display the car's LicensePlate
-        echo "<option value=\"" . htmlspecialchars($car["LicensePlate"]) . "\">" . htmlspecialchars($car["LicensePlate"]) . "</option>";
+            // Display the car's LicensePlate
+            echo "<option value=\"" . htmlspecialchars($car["LicensePlate"]) . "\">" . htmlspecialchars($car["LicensePlate"]) . "</option>";
         }
         ?>
     </select><br>
