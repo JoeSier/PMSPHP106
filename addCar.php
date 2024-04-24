@@ -3,7 +3,14 @@ include('partial/header.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-//    $credit = intval($_POST['Credit']); // Assuming the value comes from a POST request
+
+    if (empty($_POST["License"])) {
+        die("License is required");
+    }
+
+    if (empty($_POST["carType"])) {
+        die("Car type is required");
+    }
     $userID = $_SESSION['UserID'];
     $license = $_POST["License"];
     $carType = $_POST["carType"];
