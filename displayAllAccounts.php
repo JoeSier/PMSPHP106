@@ -14,10 +14,10 @@ if ($res) {
     // Display the fetched accounts in a readable format
     print_r( "<br> All accounts: <br>");
     foreach ($accounts as $account) {
-        echo "<pre>"; // Optional, makes it easier to format
+        echo "<pre>";
         print_r($account);
         echo "</pre>";
-        echo "<br>"; // Move to the next line
+        echo "<br>";
     }
 } else {
     // Handle query failure
