@@ -58,6 +58,7 @@ validation
         }
     ])
     .onSuccess((event) => {
+        event.preventDefault(); // Prevents default form submission to confirm data
         document.getElementById("signup").submit();
     });
     
