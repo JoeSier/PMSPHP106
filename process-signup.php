@@ -44,15 +44,32 @@ $username = $_POST["username"];
 $email = $_POST["email"];
 $phoneNumber = $_POST["phonenumber"];
 
+// Check if the email already exists
 $sqlCheckEmail = "SELECT COUNT(*) as count FROM account WHERE Email = ?";
-$stmtCheck = $mysqli->prepare($sqlCheckEmail);
-$stmtCheck->bind_param("s", $email);
-$stmtCheck->execute();
-$stmtCheck->bind_result($count);
-$stmtCheck->fetch();
+$stmtCheckEmail = $mysqli->prepare($sqlCheckEmail);
 
-if ($count > 0) {
-    die("Email already taken. Please use a different email.");
+$stmtCheckEmail->bind_param("s", $email);
+$stmtCheckEmail->execute();
+$stmtCheckEmail->bind_result($emailCount);
+$stmtCheckEmail->fetch();
+$stmtCheckEmail->close();
+
+if ($emailCount > 0) {
+    die("Email  already taken. Please use a different email.");
+}
+// Check if the phone number already exists
+$sqlCheckphone = "SELECT COUNT(*) as count FROM account WHERE phoneNumber = ?";
+$stmtCheckphone = $mysqli->prepare($sqlCheckphone);
+
+$stmtCheckphone->bind_param("s", $phoneNumber);
+$stmtCheckphone->execute();
+$stmtCheckphone->bind_result($phoneCount);
+$stmtCheckphone->fetch();
+$stmtCheckphone->close();
+
+
+if ($phoneCount > 0) {
+    die("Phone number already taken. Please use a different phone number.");
 }
 
 // Bind parameters
