@@ -6,8 +6,6 @@ include('partial/header.php');
 
 <body>
 
-<p>0 is not admin anything else is admin</p>
-    <p>Admin value: <?= htmlspecialchars($user["IsAdmin"]) ?></p>
     <?php if (htmlspecialchars($user["IsAdmin"]) == 0): ?>
         <h1>User Dashboard</h1>
         <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
