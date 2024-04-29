@@ -1,6 +1,8 @@
 <?php
 include('partial/header.php');
+$isAdmin = intval($user["IsAdmin"]) > 0;
 
+if ($isAdmin):
 $sel = "SELECT * FROM account";
 $mysqlj = require __DIR__ . "/database.php";
 $res = $mysqlj->query($sel);
@@ -23,6 +25,9 @@ if ($res) {
     // Handle query failure
     echo "Query failed: " . $mysqlj->error;
 }
+else:
+    die ("You are not authorized to access this page.");
+endif;
 ?>
 
 <body>

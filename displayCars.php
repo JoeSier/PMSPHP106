@@ -1,6 +1,8 @@
 <?php
 include('partial/header.php');
+$isAdmin = intval($user["IsAdmin"]) > 0;
 
+if ($isAdmin):
 $sel = "SELECT * FROM car";
 $res = $mysqli->query($sel);
 if ($res) {
@@ -22,6 +24,9 @@ if ($res) {
     // Handle query failure
     echo "Query failed: " . $mysqli->error;
 }
+else:
+    die ("You are not authorized to access this page.");
+endif;
 ?>
 
     <body>

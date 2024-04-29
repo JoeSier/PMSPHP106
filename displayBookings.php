@@ -8,7 +8,7 @@ $isAdmin = intval($user["IsAdmin"]) > 0;
 // Prepare the appropriate SQL query
 if ($isAdmin):
     $query = "SELECT timestart, timeend FROM booking";  // Admins see all bookings
-endif;
+
 
 // Prepare the SQL statement
 $stmt = $mysqli->prepare($query);
@@ -125,6 +125,9 @@ for ($month = 1; $month <= 12; $month++) {
             </script>
         </div>";
 }
+else:
+    die ("You are not authorized to access this page.");
+endif;
 
 ?>
 
