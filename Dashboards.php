@@ -17,7 +17,7 @@ include('partial/header.php');
 
 
         <p>current balance: <?= htmlspecialchars($user["Credit"]) ?></p>
-
+        <p><a href="userBookings.php">See your Bookings DOESNT EXIST!</a></p>
         <p><a href="addBalance.php">Add Balance</a></p>
         <p><a href="manageCars.php">Manage Cars</a></p>
 
