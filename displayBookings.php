@@ -2,23 +2,59 @@
 include('partial/header.php');
 $mysqli = require __DIR__ . "/database.php";
 
-// Fetch all bookings from the database
-$ssel = "SELECT timestart, timeend FROM booking";
-$times = $mysqli->query($ssel);
+// Determine if the user is an admin
+$isAdmin = intval($user["IsAdmin"]) > 0;
 
-// Check if the query was successful
-if ($times === false) {
-    die("Database query failed: " . $mysqli->error);
+// Prepare the appropriate SQL query
+if ($isAdmin):
+    $query = "SELECT timestart, timeend FROM booking";  // Admins see all bookings
+endif;
+
+// Prepare the SQL statement
+$stmt = $mysqli->prepare($query);
+
+if ($stmt === false) {
+    die("Error preparing SQL statement: " . $mysqli->error);  // SQL preparation failed
 }
 
-// Collect all bookings in an array
-$bookings = [];
-while ($row = $times->fetch_assoc()) {
-    $bookings[] = $row;
+// Bind the userID parameter if the user is not an admin
+if (!$isAdmin) {
+    if (!$stmt->bind_param("i", $user["userID"])) {
+        die("Error binding parameters: " . $stmt->error);  // Parameter binding failed
+    }
 }
+
+// Execute the SQL statement
+if (!$stmt->execute()) {
+    die("Error executing SQL statement: " . $stmt->error);  // SQL execution failed
+}
+
+// Retrieve the results
+$result = $stmt->get_result();
+
+if ($result === false) {
+    die("Error retrieving results: " . $stmt->error);  // Fetching results failed
+}
+$times = [];
+// Check if there are any results
+if ($result->num_rows === 0) {
+    echo "No bookings found.";  // No results, likely no bookings for this user
+} else {
+    // Store the results in an array
+    while ($row = $result->fetch_assoc()) {
+        $times[] = $row;  // Store each booking record
+    }
+
+    // Output the results for debugging or processing
+    print_r($times);  // Output the bookings data (for debugging or further processing)
+}
+
+// Close the statement
+$stmt->close();
 
 // Function to get occupied spaces per day for a given month
-function getOccupiedSpacesPerDay($bookings, $year, $month) {
+function getOccupiedSpacesPerDay($times, $year, $month)
+{
     $occupiedSpaces = [];
 
     // Get the number of days in the specified month
@@ -31,7 +67,7 @@ function getOccupiedSpacesPerDay($bookings, $year, $month) {
     }
 
     // Update occupied spaces based on bookings
-    foreach ($bookings as $booking) {
+    foreach ($times as $booking) {
         $bookingStart = strtotime(date('Y-m-d', strtotime($booking['timestart'])));
         $bookingEnd = strtotime(date('Y-m-d', strtotime($booking['timeend'])));
 
@@ -53,7 +89,7 @@ $currentYear = date("Y");
 // Generate HTML for each month's chart
 $chartHTML = "";
 for ($month = 1; $month <= 12; $month++) {
-    $occupiedSpaces = getOccupiedSpacesPerDay($bookings, $currentYear, $month);
+    $occupiedSpaces = getOccupiedSpacesPerDay($times, $currentYear, $month);
 
     $monthName = date("F", mktime(0, 0, 0, $month, 1));
     $dates = array_keys($occupiedSpaces);
