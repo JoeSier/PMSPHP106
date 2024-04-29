@@ -10,6 +10,8 @@ if (isset($_SESSION["UserID"])) {
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
+
+
 }
 ?>
 
@@ -19,6 +21,7 @@ if (isset($_SESSION["UserID"])) {
     <title>User Dashboard</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <?php if (isset($user)): ?>
@@ -26,18 +29,18 @@ if (isset($_SESSION["UserID"])) {
     <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
     <li><a href="index.php">Home</a></li>
     <li><a href="dashboards.php">Your Dashboard</a></a></li>
-    <li><a href="logout.php">Log out</a></li>
     <li><a href="booking.php">Book a space</a></li>
+    <li><a href="logout.php">Log out</a></li>
     </ul>
 
 
 <?php else: ?>
 
-
-<li><a href="login.php">Log in</a> </li>
-<li><a href="signup.html">sign up</a></li>
-<li></li>
-<li></li>
+    <li><a href="index.php">Home</a> </li>
+    <li><a href="login.php">Log in</a> </li>
+    <li><a href="signup.html">Sign up</a></li>
+    <li></li>
+    <li></li>
 </ul>
 
 

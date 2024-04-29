@@ -26,14 +26,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
 
-<h1>add Funds</h1>
-<p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
-<p><a href="logout.php">Log out</a></p>
-<p><a href="Dashboards.php">Return to Dashboard</a></p>
+<h1>Add Funds</h1>
+
+<p> Payment Method </p>
+
+<div class="cc-selector">
+    <input id="visa" type="radio" name="payment" value="visa" />
+    <label class="drinkcard-cc visa" for="visa"></label>
+    <input id="mastercard" type="radio" name="payment" value="mastercard" />
+    <label class="drinkcard-cc mastercard"for="mastercard"></label>
+    <input id="paypal" type="radio" name="payment" value="paypal" />
+    <label class="drinkcard-cc paypal"for="paypal"></label>
+</div>
 
 <form method="post">
     <label for="Credit">Enter Amount:</label>
-    <input type="number" name="Credit" id="Credit">
+    <input type="number" name="Credit" id="Credit" min="1" step="any">
     <button>Add funds</button>
 </form>
 

@@ -35,10 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
 
-<h1>add your car</h1>
-<p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
-<p><a href="logout.php">Log out</a></p>
-<p><a href="Dashboards.php">Return to Dashboard</a></p>
+<h1>Add a New Car</h1>
 
 <form method="post">
     <label for="License">Enter license plate:</label>
@@ -46,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <label for="carType">Enter car type:</label>
     <select name="carType" id="carType">
         <option value="Hatchback">Hatchback</option>
-        <option value="Saloon">Saloob</option>
+        <option value="Saloon">Saloon</option>
         <option value="Estate">Estate</option>
         <option value="MPV">MPV</option>
         <option value="SUV">SUV</option>

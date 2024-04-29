@@ -13,7 +13,7 @@ $mysqli = new mysqli(hostname: $host,
 if ($mysqli->connect_errno) {
     die("Connection error: " . $mysqli->connect_error);
 } else {
-    echo "Connected successfully";
+    echo " ";
 }
 
 return $mysqli;
