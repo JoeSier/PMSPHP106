@@ -1,107 +1,96 @@
 <?php
 
-if (empty($_POST["firstname"])) {
-    die("First name is required");
+// Ensure all required POST fields are present
+$requiredFields = ["firstname", "lastname", "username", "email", "phonenumber", "password", "password_confirmation"];
+foreach ($requiredFields as $field) {
+    if (empty($_POST[$field])) {
+        die(ucfirst($field) . " is required");
+    }
 }
 
-if (empty($_POST["lastname"])) {
-    die("Last name is required");
-}
-
-if (empty($_POST["username"])) {
-    die("Username is required");
-}
-
-//if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-//    die("Valid email is required");
-//}
-
-if (empty($_POST["email"])) {
-    die("Valid email is required");
-}
-
-if (empty($_POST["phonenumber"])) {
-    die("Phone number is required");
-}
-
-if (strlen($_POST["password"]) < 8) {
+$password = $_POST["password"];
+if (strlen($password) < 8) {
     die("Password must be at least 8 characters");
 }
-
-if (!preg_match("/[a-z]/i", $_POST["password"])) {
+if (!preg_match("/[a-z]/i", $password)) {
     die("Password must contain at least one letter");
 }
-
-if (!preg_match("/[0-9]/", $_POST["password"])) {
+if (!preg_match("/[0-9]/", $password)) {
     die("Password must contain at least one number");
 }
-
-if ($_POST["password"] !== $_POST["password_confirmation"]) {
+if ($password !== $_POST["password_confirmation"]) {
     die("Passwords must match");
 }
 
-$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+// Hash the password
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 $mysqli = require __DIR__ . "/database.php";
 
-//print_r($_POST);
-//var_dump($password_hash);
-
-//allows us to avoid an sql injection attack or something
-
-$sql ="INSERT INTO account(Firstname, Surname, Username, UserPassword, Email, PhoneNumber)
-VALUES (?,?,?,?,?,?)";
-
-
-
-//$stmt = $mysqli->stmt_init();
+// SQL statement to insert new user
+$sql = "INSERT INTO account (Firstname, Surname, Username, UserPassword, Email, PhoneNumber) VALUES (?,?,?,?,?,?)";
 
 if (!$stmt = $mysqli->stmt_init()) {
     die("Failed to initialize statement: " . $mysqli->error);
 }
 
-
 if (!$stmt->prepare($sql)) {
-    die("SQL error: " . $mysqli->error);
+    die("Failed to prepare SQL statement: " . $mysqli->error);
 }
-//
-//$stmt->bind_param("ssssss",
-//    $_POST["firstName"],
-//    $_POST["lastName"],
-//    $_POST["username"],
-//    $password_hash,
-//    $_POST["email"],
-//    $_POST["phonenumber"]);
 
-$firstName = $_POST["firstname"] ?? null; // Using null coalescing operator for safety
-$lastName = $_POST["lastname"] ?? null;
-$username = $_POST["username"] ?? null;
-$email = $_POST["email"] ?? null;
-$phonenumber = $_POST["phonenumber"] ?? null;
+$firstName = $_POST["firstname"];
+$lastName = $_POST["lastname"];
+$username = $_POST["username"];
+$email = $_POST["email"];
+$phoneNumber = $_POST["phonenumber"];
 
-// Ensure these variables are not null
-if (!$firstName || !$lastName || !$username || !$email || !$phonenumber) {
-    die("Missing required fields");
+// Check if the email already exists
+$sqlCheckEmail = "SELECT COUNT(*) as count FROM account WHERE Email = ?";
+$stmtCheckEmail = $mysqli->prepare($sqlCheckEmail);
+
+$stmtCheckEmail->bind_param("s", $email);
+$stmtCheckEmail->execute();
+$stmtCheckEmail->bind_result($emailCount);
+$stmtCheckEmail->fetch();
+$stmtCheckEmail->close();
+
+if ($emailCount > 0) {
+    die("Email  already taken. Please use a different email.");
 }
-//change to password hash when we use hashing
-$stmt->bind_param("ssssss", $firstName, $lastName, $username, $password_hash, $email, $phonenumber);
+// Check if the phone number already exists
+$sqlCheckphone = "SELECT COUNT(*) as count FROM account WHERE phoneNumber = ?";
+$stmtCheckphone = $mysqli->prepare($sqlCheckphone);
+
+$stmtCheckphone->bind_param("s", $phoneNumber);
+$stmtCheckphone->execute();
+$stmtCheckphone->bind_result($phoneCount);
+$stmtCheckphone->fetch();
+$stmtCheckphone->close();
 
 
-if ($stmt->execute()) {
+if ($phoneCount > 0) {
+    die("Phone number already taken. Please use a different phone number.");
+}
 
-    header("Location: signup-success.html");
-    exit;
+// Bind parameters
+if (!$stmt->bind_param("ssssss", $firstName, $lastName, $username, $password_hash, $email, $phoneNumber)) {
+    die("Failed to bind parameters: " . $stmt->error);
+}
 
-} else {
-
+// Execute the statement and handle errors
+if (!$stmt->execute()) {
     if ($mysqli->errno === 1062) {
-        die("email already taken");
+        die("Email or username already taken");
     } else {
-        die($mysqli->error . " " . $mysqli->errno);
+        die("SQL Error: " . $mysqli->error . " (Error code: " . $mysqli->errno . ")");
     }
 }
 
+// On successful execution, redirect to a success page
+header("Location: signup-success.html");
+exit;
 
+?>
 
 
 
