@@ -30,6 +30,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form2') {
     } else {
         echo "Error adding booking: " . $mysqli->error;
     }
+    $stml = $mysqli->prepare("SELECT credit FROM account WHERE USERID=?");
+    $stml->bind_param("i", $_SESSION['UserID']); // Bind the UserID parameter
+    $stml->execute(); // Execute the query
+    $result = $stml->get_result(); // Get the result set
+
+    if ($row = $result->fetch_assoc()) {
+        $currentCredit = $row['credit']; // Extract the current credit value from the row
+        $userID = $_SESSION['UserID'];   // Ensure you have the user's ID stored in the session
+        $newCredit = $currentCredit - $form1_data['price']; // Calculate new credit after subtraction
+
+        // Prepare the SQL query to update the credit
+        $stmt = $mysqli->prepare("UPDATE account SET credit = ? WHERE UserID = ?");
+
+        if ($stmt) { // Check if preparation was successful
+            // Bind parameters
+            $stmt->bind_param("ii", $newCredit, $userID);
+
+            // Execute the query and check for success
+            if ($stmt->execute()) {
+                echo "Credit updated successfully.";
+            } else {
+                echo "Error updating credit: " . $stmt->error;
+            }
+
+            // Close the prepared statement
+            $stmt->close();
+        } else {
+            echo "Error preparing SQL: " . $mysqli->error;
+        }
+    } else {
+        echo "No user found with the specified UserID.";
+    }
+
 
     // Clear session data after the booking
     unset($_SESSION['form1_data']);

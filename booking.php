@@ -73,6 +73,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         die("Car already booked for this time");
     }
 
+
+
+// Prepare the statement to get the credit from the account based on USERID
+    $stml = $mysqli->prepare("SELECT credit FROM account WHERE USERID=?");
+    $stml->bind_param("i", $_SESSION['UserID']); // Bind the UserID parameter
+    $stml->execute(); // Execute the query
+    $result = $stml->get_result(); // Get the result set
+
+// Fetch the first row from the result set
+    if ($row = $result->fetch_assoc()) {
+        $credit = $row['credit']; // Extract the credit value from the row
+
+        // Check if the credit is less than the price from POST data
+        if ($credit < $_POST['price']) {
+            die("Not enough credit"); // Terminate if not enough credit
+        } else {
+            echo "Sufficient credit"; // Optional: A message if there's enough credit
+        }
+    } else {
+        die("Error: No data found for this UserID."); // Handle cases where there's no data
+    }
+
+// Optional: Additional code to proceed with the transaction if there's enough credit
+
+
     // Store data in session to transition to the second form
     $_SESSION['freeSpaces'] = $freeSpaces;
     $_SESSION['form1_data'] = $_POST; // Store the initial form data
