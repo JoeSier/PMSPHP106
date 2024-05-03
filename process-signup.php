@@ -107,7 +107,7 @@ if ($stmt->execute()) {
                     <tr><td style="height:80px;">&nbsp;</td></tr>
                     <tr>
                         <td style="text-align:center;">
-                          <img width="60" src="https://i.ibb.co/hL4XZp2/android-chrome-192x192.png" alt="Logo">
+                          <img width="60" src="https://imgur.com/gallery/Nqam9Gi.png" alt="Logo">
                         </td>
                     </tr>
                     <tr><td style="height:20px;">&nbsp;</td></tr>
