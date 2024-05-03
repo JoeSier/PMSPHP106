@@ -2,6 +2,8 @@
 // Include header file
 include('partial/header.php');
 
+
+
 // Include database connection
 $mysqli = require __DIR__ . "/database.php";
 

@@ -1,3 +1,7 @@
+<?php
+include('partial/header.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
