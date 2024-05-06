@@ -20,7 +20,7 @@ if (isset($_SESSION["UserID"])) {
 <head>
     <title>User Dashboard</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">-->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
