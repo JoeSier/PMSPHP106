@@ -12,6 +12,8 @@
             <li><a href="displayCars.php">See All Cars</a></li>
             <li><a href="displayBookings.php">See All Bookings</a></li>
             <li><a href="displayAllAccounts.php">See All Accounts</a></li>
+            <li><a href="manageParkingLots.php">Manage parking lots</a></li>
+            <li><a href="manageSpaces.php">Manage parking spaces</a></li>
         </ul>
     </div>
 <?php endif; ?>

@@ -98,7 +98,6 @@ for ($month = 1; $month <= 12; $month++) {
 
     // Create a canvas for each chart with a unique ID
     $chartHTML .= "
-        <div class='dashContent'>
         <div id='chart-container-$month' class='chart-container' style='display: none;'>
             <canvas id='occupiedSpacesChart-$month' width='400' height='200'></canvas>
             <script>
@@ -125,7 +124,6 @@ for ($month = 1; $month <= 12; $month++) {
                     }
                 });
             </script>
-        </div>
         </div>";
 }
 else:
@@ -134,8 +132,6 @@ endif;
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -147,8 +143,10 @@ endif;
 </div>
 
 <!-- Container for all chart canvases -->
+<div class='dashContent'>
 <div id="chart-area">
     <?php echo $chartHTML; ?>
+</div>
 </div>
 
 <script>
