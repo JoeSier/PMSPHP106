@@ -38,17 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div  id="loginbox">
 <h1 class="title">Welcome back!</h1>
 
-    <div id="loginform"
-<!--<form method="post">-->
-<!--    <label class="logintext" for="email">Email address</label>-->
-<!--    <input  type="email" name="email" id="email"-->
-<!--           value="--><?php //= htmlspecialchars($_POST["email"] ?? "") ?><!--">-->
-<!--    <label class="logintext" for="password">Password</label>-->
-<!--    <input type="password" name="password" id="password">-->
-<!---->
-<!--    <button type="submit" id="loginbutton">Log in</button>-->
-<!---->
-<!--</form>-->
+    <div id="loginform">
+
+
+
 
 
     <form method="post">

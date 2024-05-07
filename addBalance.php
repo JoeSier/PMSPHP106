@@ -1,5 +1,6 @@
 <?php
 include('partial/header.php');
+include('sidebar.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $credit = intval($_POST['Credit']); // Assuming the value comes from a POST request
@@ -25,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <body>
-
+<div class="dashContent">
 <h1>Add Funds</h1>
 
 <p> Payment Method </p>
@@ -45,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button>Add funds</button>
 </form>
 
-
+</div>
 </body>
 </html>
 

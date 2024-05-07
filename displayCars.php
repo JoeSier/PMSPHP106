@@ -1,5 +1,6 @@
 <?php
 include('partial/header.php');
+include('sidebar.php');
 $isAdmin = intval($user["IsAdmin"]) > 0;
 
 if ($isAdmin):
@@ -13,12 +14,12 @@ if ($res) {
     }
 
     // Display the fetched accounts in a readable format
-    print_r( "<br> All bookings: <br>");
+    print_r( "<div class='dashContent'><br> All cars: <br></div>");
     foreach ($accounts as $account) {
-        echo "<pre>"; // Optional, makes it easier to format
+        echo "<div class='dashContent'><pre>"; // Optional, makes it easier to format
         print_r($account);
         echo "</pre>";
-        echo "<br>"; // Move to the next line
+        echo "<br></div>"; // Move to the next line
     }
 } else {
     // Handle query failure
@@ -30,5 +31,7 @@ endif;
 ?>
 
     <body>
+    <div class="dashContent">
+    </div>
 
     </body><?php

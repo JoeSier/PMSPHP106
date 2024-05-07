@@ -1,5 +1,6 @@
 <?php
 include('partial/header.php');
+include('sidebar.php');
 $mysqli = require __DIR__ . "/database.php";
 
 // Determine if the user is an admin
@@ -46,7 +47,7 @@ if ($result->num_rows === 0) {
     }
 
     // Output the results for debugging or processing
-    print_r($times);  // Output the bookings data (for debugging or further processing)
+//    print_r($times);  // Output the bookings data (for debugging or further processing)
 }
 
 // Close the statement
@@ -97,6 +98,7 @@ for ($month = 1; $month <= 12; $month++) {
 
     // Create a canvas for each chart with a unique ID
     $chartHTML .= "
+        <div class='dashContent'>
         <div id='chart-container-$month' class='chart-container' style='display: none;'>
             <canvas id='occupiedSpacesChart-$month' width='400' height='200'></canvas>
             <script>
@@ -123,6 +125,7 @@ for ($month = 1; $month <= 12; $month++) {
                     }
                 });
             </script>
+        </div>
         </div>";
 }
 else:
@@ -138,8 +141,10 @@ endif;
 </head>
 <body>
 <!-- Buttons to navigate between graphs -->
+<div class='dashContent'>
 <button id="previous" onclick="showPrevious()">Previous</button>
 <button id="next" onclick="showNext()">Next</button>
+</div>
 
 <!-- Container for all chart canvases -->
 <div id="chart-area">

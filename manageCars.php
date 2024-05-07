@@ -1,7 +1,8 @@
 <?php
 include('partial/header.php');
+include('sidebar.php');
 ?>
-
+<div class="dashContent">
 <h1>Manage your cars</h1>
 
 <?php
@@ -34,7 +35,7 @@ if ($res) {
 }
 
 ?>
-
+</div>
 <body>
 
 <p><a href="addCar.php">add Cars</a></p>

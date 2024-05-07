@@ -1,30 +1,26 @@
 <?php
 include('partial/header.php');
+include('sidebar.php');
 ?>
 
 <body>
 
+<div class="dashContent">
     <?php if (htmlspecialchars($user["IsAdmin"]) == 0): ?>
-        <h1>User Dashboard</h1>
-        <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
+        <h1>Welcome back, <?= htmlspecialchars($user["Username"]) ?></h1>
+        <h2>User Dashboard</h2>
+        <p><br>Your current balance is: <?= htmlspecialchars($user["Credit"]) ?></p>
 
-
-        <p>current balance: <?= htmlspecialchars($user["Credit"]) ?></p>
-        <p><a href="userBookings.php">Manage Bookings DOESNT EXIST!</a></p>
-        <p><a href="addBalance.php">Add Balance</a></p>
-        <p><a href="manageCars.php">Manage Cars</a></p>
 
     <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
-        <h1>Admin Dashboard</h1>
-        <p><a href="displayCars.php">See All Cars</a></p>
-        <p><a href="displayBookings.php">See All Bookings</a></p>
-        <p><a href="displayAllAccounts.php">See All Accounts</a></p>
+        <h1>Welcome back, <?= htmlspecialchars($user["Username"]) ?></h1>
+        <h2>Admin Dashboard</h2>
     <?php else: ?>
         <p>couldn't detect if admin</p>
     <?php endif; ?>
 
 
-
+</div>
 
 
 

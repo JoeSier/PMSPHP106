@@ -173,6 +173,7 @@ label {
 .nav-container {
     display: flex;
     justify-content: flex-end; /* Aligns nav to the right */
+    width:100%
 }
 
 nav {
@@ -180,7 +181,7 @@ nav {
     padding-right:2%;
 }
 
-ul {
+nav ul {
     list-style: none; /* Remove default list styles */
     padding: 0; /* Remove default padding */
     margin: 0; /* Remove default margin */
@@ -188,11 +189,11 @@ ul {
     justify-content: flex-end; /* Align the entire list to the right */
 }
 
-li {
+nav ul li {
     margin-left: 30px; /* Space between nav items */
 }
 
-li a {
+nav ul li a {
     font-size:25px;
     text-decoration: none; /* Optional: remove underline from links */
     color: white; /* Set text color to black or any other color */
@@ -207,4 +208,40 @@ li a:hover {
     color: red; /* Red text for emphasis */
     font-weight: bold; /* Bold text */
     margin-top: 10px; /* Space above the error message */
+}
+
+#sidebar {
+    width: 300px; /* Adjust as needed */
+    background-color: #486600; /* Background color */
+    padding: 10px;
+    padding-top: 50px;
+    height: 100vh; /* Full height */
+    position: fixed; /* Sidebar remains fixed on scroll */
+    left: 0; /* Aligns the sidebar to the left */
+}
+
+
+#sidebar ul {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar li {
+    margin-bottom: 30px; /* Space between nav items */
+    border-bottom: 1px solid #ccc; /* Gray line at the bottom of each list item */
+}
+
+#sidebar li a {
+    font-size: 20px;
+    text-decoration: none; /* Removes underline from links */
+    color: white; /* Sets text color */
+}
+
+
+.dashContent{
+    flex: 1; /* Take the remaining space in the container */
+    margin-left: 320px; /* Adjust to ensure it's clear of the sidebar */
+    padding: 20px; /* Add padding for comfortable text placement */
+
 }
