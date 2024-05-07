@@ -1,7 +1,10 @@
 <?php
 // Include header file
-include('partial/header.php');
 
+include('partial/header.php');
+if (!$_SESSION['UserID']){
+    die("you cannot access this page because you are not logged in.");
+}
 
 
 // Include database connection
@@ -113,7 +116,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
 ?>
 
 <body>
-<h1>Make a booking</h1>
+<div id="booking-cont">
+<h1 class="title">Make a booking</h1>
+    <div id="booking-form">
 <form method="post" onsubmit="return validateForm()">
     <input type="hidden" name="form_type" value="form1">
     <label for="start_date">Start Date:</label>
@@ -167,8 +172,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
 
     <button type="submit">Submit</button>
 </form>
-
-
+    </div>
+</div>
 <script>
     function validateForm() {
         // Validate if all fields are filled out

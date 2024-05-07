@@ -50,15 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
 
         <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-
-        <button>Log in</button>
+        <input type="password" name="password" id="password" >
+<div class="button-container">
+        <button>Log in</button><p class="sideSpace"></p><button href="signup.php">Sign up</button>
+</div>
     </form>
     <?php if ($is_invalid): ?>
         <em>Invalid login</em>
     <?php endif; ?>
-<a href="signup.php">Sign up</a>
-<a href="forgotPassword.php">Forgot password?</a>
+
+<a class="topSpace" href="forgotPassword.php">Forgot password?</a>
 </div>
 </div>
 </body>

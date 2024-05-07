@@ -12,8 +12,8 @@ include('partial/header.php');
 </head>
 <body>
 <div  id="loginbox">
-<div id="loginform"
-    <h1>Signup</h1>
+<div id="loginform">
+    <h1 class="title">Signup</h1>
     
     <form action="process-signup.php" method="post" id="signup" novalidate>
         <div>
