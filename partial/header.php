@@ -20,29 +20,30 @@ if (isset($_SESSION["UserID"])) {
 <head>
     <title>User Dashboard</title>
     <meta charset="UTF-8">
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">-->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<?php if (isset($user)): ?>
+<div class="header">
+   <a href="index.php">
+    <img src="/img/logoLeft.png" class="logo">
+   </a>
+    <?php if (isset($user)): ?>
+<div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="dashboards.php">Your Dashboard</a></a></li>
+                <li><a href="booking.php">Book a space</a></li>
+                <li><a href="logout.php">Log out</a></li>
+            </ul>
 
-    <p>Hello <?= htmlspecialchars($user["Username"]) ?></p>
-    <li><a href="index.php">Home</a></li>
-    <li><a href="dashboards.php">Your Dashboard</a></a></li>
-    <li><a href="booking.php">Book a space</a></li>
-    <li><a href="logout.php">Log out</a></li>
-    </ul>
+        </nav>
+    <?php else: ?>
+        <nav>
+            <ul>
+                <li><a href="login.php">Log in</a> </li>
+                <li><a href="signup.php">Sign up</a></li>
+            </ul>
+        </nav>
 
-
-<?php else: ?>
-
-    <li><a href="index.php">Home</a> </li>
-    <li><a href="login.php">Log in</a> </li>
-    <li><a href="signup.php">Sign up</a></li>
-    <li></li>
-    <li></li>
-</ul>
-
-
-<?php endif; ?>
-</body>
+    <?php endif; ?>
+</div>
+</div>

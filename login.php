@@ -35,25 +35,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 <body>
 
-<h1>Login</h1>
+<div  id="loginbox">
+<h1 class="title">Welcome back!</h1>
 
-<?php if ($is_invalid): ?>
-    <em>Invalid login</em>
-<?php endif; ?>
+    <div id="loginform"
+<!--<form method="post">-->
+<!--    <label class="logintext" for="email">Email address</label>-->
+<!--    <input  type="email" name="email" id="email"-->
+<!--           value="--><?php //= htmlspecialchars($_POST["email"] ?? "") ?><!--">-->
+<!--    <label class="logintext" for="password">Password</label>-->
+<!--    <input type="password" name="password" id="password">-->
+<!---->
+<!--    <button type="submit" id="loginbutton">Log in</button>-->
+<!---->
+<!--</form>-->
 
-<form method="post">
-    <label for="email">email</label>
-    <input type="email" name="email" id="email"
-           value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
 
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password">
+    <form method="post">
+        <label for="email">email</label>
+        <input type="email" name="email" id="email"
+               value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
 
-    <button>Log in</button>
-</form>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
 
+        <button>Log in</button>
+    </form>
+    <?php if ($is_invalid): ?>
+        <em>Invalid login</em>
+    <?php endif; ?>
+<a href="signup.php">Sign up</a>
 <a href="forgotPassword.php">Forgot password?</a>
-
+</div>
+</div>
 </body>
 </html>
 

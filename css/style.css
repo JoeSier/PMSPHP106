@@ -1,4 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Josefin Sans", sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+}
 
 .cc-selector input{
     margin:0;padding:0;
@@ -52,4 +59,152 @@
     line-height: 2.5;
     border-radius: 7px 0 0 7px;
     background: white;
+}
+
+.logo {
+    max-width: 240px;
+    max-height: 240px;
+    margin: 0px;
+    cursor: pointer;
+    float: left;
+    z-index: 1;
+}
+.header{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    background-color: #5C8001;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#homebox{
+    background-color: rgb(91, 127, 1);
+    height:700px;
+    display: flex;
+    /*box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);*/
+}
+
+#homeSeperator{
+    background-color: rgb(126, 193, 8);
+    height:90px;
+}
+
+#homeimage{
+    /*height: 400px;*/
+    /*width:400px;*/
+    /*height:80%;*/
+    /*width:50%;*/
+   width: auto;
+    height:60%;
+    padding-top:80px;
+    padding-left:50px;
+    z-index:1;
+}
+
+#homeText{
+    margin-left:30%;
+    /*margin-right:60%;*/
+    padding-right:20px;
+    padding-top:10%;
+    padding-bottom:10%;
+}
+
+#loginbox{
+    padding-top:10%;
+    padding-left:15%;
+    /*margin-left:30%;*/
+    /*margin-right:30%;*/
+    /*margin-top:20%;*/
+}
+
+.title{
+    color: #5a7f01;
+    font-size: 80px;
+}
+
+#loginform{
+    /*text-decoration-style:*/
+    padding-left:20px;
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* Set a fixed width for consistent layout */
+}
+
+#loginbutton{
+    width:100px;
+    padding-top: 5px;
+    margin: 0 auto;
+}
+
+.logintext{
+    font-size:40px;
+
+}
+
+label {
+    display: block; /* Ensure label is on its own line */
+    font-weight: bold; /* Make the label text bold */
+    margin-bottom: 5px; /* Space between label and input */
+}
+/*nav ul li{*/
+/*    display:flex;*/
+/*    color: white;*/
+/*    text-decoration: none;*/
+/*    text-transform: capitalize;*/
+/*    padding: 15px 30px;*/
+/*    transition: all .2s ease;*/
+/*    z-index: 1;*/
+/*}*/
+
+/*!*.nav-container{*!*/
+/*!*    display:inline-block;*!*/
+/*!*}*!*/
+
+/*nav ul{*/
+/*    display:inline-block;*/
+/*}*/
+
+.nav-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns nav to the right */
+}
+
+nav {
+    /* Add any additional styling if needed */
+    padding-right:2%;
+}
+
+ul {
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Display items side by side */
+    justify-content: flex-end; /* Align the entire list to the right */
+}
+
+li {
+    margin-left: 30px; /* Space between nav items */
+}
+
+li a {
+    font-size:25px;
+    text-decoration: none; /* Optional: remove underline from links */
+    color: white; /* Set text color to black or any other color */
+}
+
+li a:hover {
+    text-decoration: none; /* Optional: underline on hover */
+    color:black;
+}
+
+.error-message {
+    color: red; /* Red text for emphasis */
+    font-weight: bold; /* Bold text */
+    margin-top: 10px; /* Space above the error message */
 }

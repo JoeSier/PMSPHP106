@@ -7,12 +7,12 @@ include('partial/header.php');
 <head>
     <title>Signup</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
     <script src="/js/validation.js" defer></script>
 </head>
 <body>
-    
+<div  id="loginbox">
+<div id="loginform"
     <h1>Signup</h1>
     
     <form action="process-signup.php" method="post" id="signup" novalidate>
@@ -53,7 +53,8 @@ include('partial/header.php');
         
         <button>Sign up</button>
     </form>
-    
+</div>
+</div>
 </body>
 </html>
 
