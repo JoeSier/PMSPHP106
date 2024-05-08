@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 07:44 PM
+-- Generation Time: May 08, 2024 at 11:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`) VALUES
-                                                                                                                                                                                                               (1, 1, 'ADMIN', 'ADMIN', -730.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL),
-                                                                                                                                                                                                               (2, 0, 'test', 'test', 4272.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
+                                                                                                                                                                                                               (1, 1, 'ADMIN', 'ADMIN', 3927.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL),
+                                                                                                                                                                                                               (22, 0, 'test', 'test', 3927.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -72,11 +72,6 @@ CREATE TABLE `booking` (
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`BookingID`, `UserID`, `ParkingSpaceID`, `LicensePlate`, `BookingCost`, `timeStart`, `timeEnd`, `LotName`, `Active`) VALUES
-                                                                                                                                                (30, 1, 13, 'ADMIN', 250.00, '2024-05-09 01:00:00', '2024-05-11 03:00:00', 'UEA main', 0),
-                                                                                                                                                (31, 1, 12, 'ADMIN', 480.00, '2024-05-10 01:30:00', '2024-05-14 01:30:00', 'other lot', 0),
-                                                                                                                                                (32, 22, 1, '3425647', 247.00, '2024-05-01 01:30:00', '2024-05-02 03:00:00', 'UEA main', 0),
-                                                                                                                                                (33, 22, 6, '3425647', 480.00, '2024-05-01 02:30:00', '2024-05-02 02:30:00', 'other lot', 1);
 
 -- --------------------------------------------------------
 
@@ -155,6 +150,26 @@ CREATE TABLE `replies` (
 --
 
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requestedbookings`
+--
+
+CREATE TABLE `requestedbookings` (
+                                     `BookingID` int(11) NOT NULL,
+                                     `UserID` int(11) NOT NULL,
+                                     `ParkingSpaceID` int(50) NOT NULL,
+                                     `LicensePlate` varchar(7) NOT NULL,
+                                     `BookingCost` decimal(10,2) NOT NULL,
+                                     `timeStart` timestamp NOT NULL DEFAULT current_timestamp(),
+                                     `timeEnd` timestamp NULL DEFAULT NULL,
+                                     `LotName` varchar(250) NOT NULL,
+                                     `Active` int(11) NOT NULL DEFAULT 0,
+                                     `price` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -207,6 +222,16 @@ ALTER TABLE `replies`
     ADD KEY `replies_ibfk_1` (`post_id`);
 
 --
+-- Indexes for table `requestedbookings`
+--
+ALTER TABLE `requestedbookings`
+    ADD PRIMARY KEY (`BookingID`),
+    ADD KEY `UserID` (`UserID`),
+    ADD KEY `LicensePlate` (`LicensePlate`),
+    ADD KEY `ParkingSpaceID` (`ParkingSpaceID`) USING BTREE,
+    ADD KEY `booking_ibfk_3` (`LotName`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -220,7 +245,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `posts`
