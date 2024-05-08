@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form2') {
                                         <p>
                                             To manage your booking, log in and go to your dashboard:
                                         </p>
-                                        <a href="https://localhost/pms/dashboards.php" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Manage Booking</a>
+                                        <a href="https://localhost/dashboards.php" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Manage Booking</a>
                                     </td>
                                 </tr>
                                 <tr><td style="height:40px;">&nbsp;</td></tr>

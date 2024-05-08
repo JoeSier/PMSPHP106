@@ -59,7 +59,7 @@ if ($mysqli->affected_rows) {
                                         <p>
                                             To reset your password, click the following link and follow the instructions:
                                         </p>
-                                        <a href="https://localhost/pms/reset-password.php?token=$token" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Reset Password</a>
+                                        <a href="https://localhost/reset-password.php?token=$token" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Reset Password</a>
                                     </td>
                                 </tr>
                                 <tr><td style="height:40px;">&nbsp;</td></tr>

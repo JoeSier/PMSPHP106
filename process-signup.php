@@ -121,7 +121,7 @@ if ($stmt->execute()) {
                                         <p>
                                             To activate your account, click the following link:
                                         </p>
-                                        <a href="https://localhost/pms/activateAccount.php?token=$activation_token" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Activate Account</a>
+                                        <a href="https://localhost/activateAccount.php?token=$activation_token" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Activate Account</a>
                                     </td>
                                 </tr>
                                 <tr><td style="height:40px;">&nbsp;</td></tr>
