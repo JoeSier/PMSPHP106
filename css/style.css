@@ -171,7 +171,28 @@ width:auto;
     width: 300px; /* Set a fixed width for consistent layout */
 }
 
+#displayBookingForm{
+    padding-left:20px;
+    width: 300px; /* Set a fixed width for consistent layout */
+}
 
+
+#bookingForm{
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+#bookingForm label {
+
+
+    margin-right: 10px; /* Add some space between the label and the select box */
+}
+
+#bookingForm select {
+    margin-bottom: 0;
+    margin-right: 10px; /* Add some space between the select box and the button */
+    width: 250px;
+}
 
 #loginbutton{
     width:100px;
@@ -257,6 +278,10 @@ button:hover {
     margin-top:10px;
 }
 
+.bottomSpace{
+    padding-bottom:10px;
+}
+
 .nav-container {
     display: flex;
     justify-content: flex-end; /* Aligns nav to the right */
@@ -333,3 +358,10 @@ li a:hover {
 
 }
 
+#chart-area{
+    width:1000px;
+}
+
+#previous{
+    margin-left:20px;
+}

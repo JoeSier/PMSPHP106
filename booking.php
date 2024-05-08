@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
 
     $license = $_POST['license_plate'];
 // Check if the given license plate is already booked for the requested time
-    if (in_array($license, $occupiedLicensePlates)) {
+    if (in_array($license, $occupiedLicensePlates) && htmlspecialchars($user["IsAdmin"]) ==0) {
         die("Car already booked for this time");
     }
 
