@@ -1,6 +1,7 @@
 <?php
 include('partial/header.php');
-
+include('sidebar.php');
+$successMessage=null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -23,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $success = $stmt->execute();
 
     if ($success) {
-        echo "Car added successfully!";
+        $successMessage = "Car added successfully!";
     } else {
-        echo "Error adding car: " . $mysqli->error;
+        $successMessage = "Error adding car.";
     }
     $stmt->close();
     $mysqli->close();
@@ -34,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <body>
-
+<div class="dashContent">
 <h1>Add a New Car</h1>
-
+<div id="loginform">
 <form method="post">
     <label for="License">Enter license plate:</label>
     <input type="text" name="License" id="License">
@@ -53,7 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </select>
     <button>Add Car</button>
 </form>
-
+    <?php if ($successMessage): ?>
+        <div class="successMessage"><?php echo htmlspecialchars($successMessage); ?></div>
+    <?php endif; ?>
+</div>
+</div>
 
 </body>
 </html>

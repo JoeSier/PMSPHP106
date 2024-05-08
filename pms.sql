@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2024 at 04:16 AM
+-- Generation Time: May 08, 2024 at 01:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,13 +36,18 @@ CREATE TABLE `account` (
                            `Username` varchar(50) NOT NULL,
                            `UserPassword` varchar(255) NOT NULL,
                            `Email` varchar(50) NOT NULL,
-                           `PhoneNumber` varchar(20) NOT NULL
+                           `PhoneNumber` varchar(20) NOT NULL,
+                           `reset_token_hash` varchar(64) DEFAULT NULL,
+                           `reset_token_expires_at` datetime DEFAULT NULL,
+                           `account_activation_hash` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `account`
 --
 
+INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`) VALUES
+    (1, 1, 'ADMIN', 'ADMIN', 0.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -57,7 +62,8 @@ CREATE TABLE `booking` (
                            `LicensePlate` varchar(7) NOT NULL,
                            `BookingCost` decimal(10,2) NOT NULL,
                            `timeStart` timestamp NOT NULL DEFAULT current_timestamp(),
-                           `timeEnd` timestamp NULL DEFAULT NULL
+                           `timeEnd` timestamp NULL DEFAULT NULL,
+                           `LotName` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -81,6 +87,27 @@ CREATE TABLE `car` (
 -- Dumping data for table `car`
 --
 
+INSERT INTO `car` (`UserID`, `LicensePlate`, `CarType`) VALUES
+    (1, 'ADMIN', 'Hatchback');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parkinglots`
+--
+
+CREATE TABLE `parkinglots` (
+                               `TotalSpaces` int(11) NOT NULL,
+                               `LotName` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `parkinglots`
+--
+
+INSERT INTO `parkinglots` (`TotalSpaces`, `LotName`) VALUES
+    (30, 'UEA main');
+
 --
 -- Indexes for dumped tables
 --
@@ -90,7 +117,10 @@ CREATE TABLE `car` (
 --
 ALTER TABLE `account`
     ADD PRIMARY KEY (`UserID`),
-    ADD UNIQUE KEY `PhoneNumber` (`PhoneNumber`);
+    ADD UNIQUE KEY `PhoneNumber` (`PhoneNumber`),
+    ADD UNIQUE KEY `Email` (`Email`),
+    ADD UNIQUE KEY `reset_token_hash` (`reset_token_hash`),
+    ADD UNIQUE KEY `account_activation_hash` (`account_activation_hash`);
 
 --
 -- Indexes for table `booking`
@@ -110,6 +140,12 @@ ALTER TABLE `car`
     ADD KEY `UserID` (`UserID`);
 
 --
+-- Indexes for table `parkinglots`
+--
+ALTER TABLE `parkinglots`
+    ADD PRIMARY KEY (`LotName`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -117,13 +153,13 @@ ALTER TABLE `car`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-    MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+    MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
@@ -134,7 +170,8 @@ ALTER TABLE `booking`
 --
 ALTER TABLE `booking`
     ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`),
-    ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`LicensePlate`) REFERENCES `car` (`LicensePlate`);
+    ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`LicensePlate`) REFERENCES `car` (`LicensePlate`),
+    ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`LotName`) REFERENCES `parkinglots` (`LotName`);
 
 --
 -- Constraints for table `car`
@@ -143,18 +180,7 @@ ALTER TABLE `car`
     ADD CONSTRAINT `car_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`);
 COMMIT;
 
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-ALTER TABLE account
-    ADD reset_token_hash VARCHAR(64) NULL DEFAULT NULL,
-    ADD reset_token_expires_at DATETIME NULL DEFAULT NULL,
-    ADD UNIQUE (reset_token_hash);
-
--- Second query
-ALTER TABLE account
-    ADD account_activation_hash VARCHAR(64) NULL DEFAULT NULL AFTER reset_token_expires_at,
-    ADD UNIQUE (account_activation_hash);
-
-

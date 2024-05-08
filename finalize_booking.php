@@ -21,9 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form2') {
     $price = $form1_data['price'];
     $desiredStart = "{$form1_data['start_date']} {$form1_data['start_time']}";
     $desiredEnd = "{$form1_data['end_date']} {$form1_data['end_time']}";
+    $lotName = "{$form1_data['parkingLot']}";
 
-    $stmt = $mysqli->prepare("INSERT INTO booking(UserID, ParkingSpaceID, LicensePlate, BookingCost, timeStart, timeEnd) VALUES(?,?,?,?,?,?)");
-    $stmt->bind_param("iisiss", $userID, $parking_space, $license_plate, $price, $desiredStart, $desiredEnd);
+    $stmt = $mysqli->prepare("INSERT INTO booking(UserID, ParkingSpaceID, LicensePlate, BookingCost, timeStart, timeEnd, LotName) VALUES(?,?,?,?,?,?,?)");
+    $stmt->bind_param("iisisss", $userID, $parking_space, $license_plate, $price, $desiredStart, $desiredEnd, $lotName);
 
     if ($stmt->execute()) {
         echo "Booking successfully made!";

@@ -7,20 +7,17 @@ $is_invalid = false;
 
 $mysqli = require __DIR__ . "/database.php";
 
-// Fetch the current user's cars
-$userID = $_SESSION['UserID'];
-$stmt = $mysqli->prepare("SELECT LicensePlate FROM car WHERE UserID = ?");
-$stmt->bind_param("i", $userID);
+$stmt = $mysqli->prepare("SELECT LotName FROM parkinglots");
 $stmt->execute();
 $result = $stmt->get_result();
-$cars = $result->fetch_all(MYSQLI_ASSOC);
+$parkinglots = $result->fetch_all(MYSQLI_ASSOC);
 
 $is_invalid = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $license = $_POST["License"];
-    $delete_stmt = $mysqli->prepare("DELETE FROM car WHERE LicensePlate = ? AND UserID = ?");
-    $delete_stmt->bind_param("si", $license, $userID);
+    $parkingLot = $_POST["parkingLot"];
+    $delete_stmt = $mysqli->prepare("DELETE FROM parkinglots WHERE LotName = ?");
+    $delete_stmt->bind_param("s", $parkingLot);
     $success = $delete_stmt->execute();
 
     if ($success) {
@@ -36,21 +33,21 @@ $mysqli->close();
 ?>
 <body>
 <div class="dashContent">
-    <h1>Remove a Car</h1>
+    <h1>Remove a Parking Lot</h1>
     <div id="loginform">
         <form method="post">
-            <label for="License">Car license:</label>
-            <select name="License" id="License">
-                <option value="">Select a car to remove</option>
+            <label for="parkingLot">Parking Lot Name:</label>
+            <select name="parkingLot" id="parkingLot">
+                <option value="">Select a Parking Lot to remove</option>
                 <?php
                 // Populate the select field with the user's cars
-                foreach ($cars as $car) {
-                    // Display the car's LicensePlate and optionally the CarModel
-                    echo "<option value=\"" . htmlspecialchars($car["LicensePlate"]) . "\">" . htmlspecialchars($car["LicensePlate"] . " - " . $car["CarModel"]) . "</option>";
+                foreach ($parkinglots as $parkinglots) {
+                    // Display the car's parkingLotPlate and optionally the CarModel
+                    echo "<option value=\"" . htmlspecialchars($parkinglots["LotName"]) . "\">" . htmlspecialchars($parkinglots["LotName"] ) . "</option>";
                 }
                 ?>
             </select>
-            <button type="submit">Remove Car</button>
+            <button type="submit">Remove LOT</button>
         </form>
         <?php if ($successMessage): ?>
             <div class="successMessage"><?php echo htmlspecialchars($successMessage); ?></div>

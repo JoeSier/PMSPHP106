@@ -18,9 +18,16 @@ $stmt->execute();
 $result = $stmt->get_result();
 $cars = $result->fetch_all(MYSQLI_ASSOC);
 
-// Close prepared statement and database connection
+$stmt = $mysqli->prepare("SELECT LotName FROM parkingLots");
+$stmt->execute();
+$result = $stmt->get_result();
+$parkingLot = $result->fetch_all(MYSQLI_ASSOC);
+
 $stmt->close();
 $mysqli->close();
+
+// Close prepared statement and database connection
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
 // This gets all of the free parking spaces at the time entered
@@ -40,6 +47,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         //Convert into timestamps
         $desiredStart = strtotime("$start_date $start_time");
         $desiredEnd = strtotime("$end_date $end_time");
+
+    $stmt = $mysqli->prepare("SELECT TotalSpaces FROM parkingLots where LotName=?");
+    $stmt->bind_param("s", $_POST['parkingLot']);
+    $stmt->execute();
+    $result1 = $stmt->get_result();
+    $parkingSpaces = null;
+    if ($row = $result1->fetch_assoc()) {
+        $parkingSpaces = intval($row['TotalSpaces']);
+    } else {
+        die("No parking lot found with the specified name.");
+    }
+
+    // Admin can do reservations or blocks as long as they want
+    if (htmlspecialchars($user["IsAdmin"]) == 0){
+        $differenceInSeconds = $desiredEnd - $desiredStart;
+        $differenceInDays = $differenceInSeconds / (60 * 60 * 24);
+
+        if ($differenceInDays > 10) {
+            echo "Booking duration cannot exceed 10 days.";
+            exit;
+        }
+    }
 
         if ($desiredStart >= $desiredEnd) {
             echo "End time must be after start time.";
@@ -66,7 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
 
     // Determine free spaces
     $freeSpaces = [];
-    for ($i = 1; $i <= 50; $i++) {
+        $totalSpaces=$parkingSpaces;
+    for ($i = 1; $i <= $totalSpaces; $i++) {
         if (!in_array($i, $occupiedSpaces)) {
             $freeSpaces[] = $i;
         }
@@ -91,10 +121,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         $credit = $row['credit']; // Extract the credit value from the row
 
         // Check if the credit is less than the price from POST data
+        if (htmlspecialchars($user["IsAdmin"]) > 0){
+            $credit=10000;
+        }
         if ($credit < $_POST['price']) {
             die("Not enough credit"); // Terminate if not enough credit
-        } else {
-            echo "Sufficient credit"; // Optional: A message if there's enough credit
         }
     } else {
         die("Error: No data found for this UserID."); // Handle cases where there's no data
@@ -121,6 +152,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
     <div id="booking-form">
 <form method="post" onsubmit="return validateForm()">
     <input type="hidden" name="form_type" value="form1">
+
+    <label for="parkingLot">Parking Lot:</label>
+    <select name="parkingLot" id="parkingLot">
+        <option value="">Select a Parking Lot</option>
+        <?php
+        // Populate the select field with the user's cars
+        foreach ($parkingLot as $parkingLot) {
+            // Display the car's parkingLotPlate and optionally the CarModel
+            echo "<option value=\"" . htmlspecialchars($parkingLot["LotName"]) . "\">" . htmlspecialchars($parkingLot["LotName"] ) . "</option>";
+        }
+        ?>
+    </select>
     <label for="start_date">Start Date:</label>
     <input type="date" id="start_date" name="start_date" min="<?php echo date('Y-m-d'); ?>" required><br>
 

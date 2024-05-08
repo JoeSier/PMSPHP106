@@ -23,6 +23,7 @@ if (empty($freeSpaces) || empty($form1_data)) {
             echo "<option value=\"" . htmlspecialchars($space) . "\">" . htmlspecialchars($space) . "</option>";
         }
         ?>
+
     </select><br>
 
     <button type="submit">Submit</button>
