@@ -18,7 +18,7 @@ if (isset($_SESSION["UserID"])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Dashboard</title>
+<!--    <title>User Dashboard</title>-->
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
 </head>
