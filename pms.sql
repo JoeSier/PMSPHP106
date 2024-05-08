@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 01:14 PM
+-- Generation Time: May 08, 2024 at 07:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`) VALUES
-    (1, 1, 'ADMIN', 'ADMIN', 0.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'Parklyuser@outlook.com', '1234567890', NULL, NULL, NULL);
+                                                                                                                                                                                                               (1, 1, 'ADMIN', 'ADMIN', -730.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL),
+                                                                                                                                                                                                               (2, 0, 'test', 'test', 4272.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -63,13 +64,19 @@ CREATE TABLE `booking` (
                            `BookingCost` decimal(10,2) NOT NULL,
                            `timeStart` timestamp NOT NULL DEFAULT current_timestamp(),
                            `timeEnd` timestamp NULL DEFAULT NULL,
-                           `LotName` varchar(250) NOT NULL
+                           `LotName` varchar(250) NOT NULL,
+                           `Active` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
+INSERT INTO `booking` (`BookingID`, `UserID`, `ParkingSpaceID`, `LicensePlate`, `BookingCost`, `timeStart`, `timeEnd`, `LotName`, `Active`) VALUES
+                                                                                                                                                (30, 1, 13, 'ADMIN', 250.00, '2024-05-09 01:00:00', '2024-05-11 03:00:00', 'UEA main', 0),
+                                                                                                                                                (31, 1, 12, 'ADMIN', 480.00, '2024-05-10 01:30:00', '2024-05-14 01:30:00', 'other lot', 0),
+                                                                                                                                                (32, 22, 1, '3425647', 247.00, '2024-05-01 01:30:00', '2024-05-02 03:00:00', 'UEA main', 0),
+                                                                                                                                                (33, 22, 6, '3425647', 480.00, '2024-05-01 02:30:00', '2024-05-02 02:30:00', 'other lot', 1);
 
 -- --------------------------------------------------------
 
@@ -88,7 +95,8 @@ CREATE TABLE `car` (
 --
 
 INSERT INTO `car` (`UserID`, `LicensePlate`, `CarType`) VALUES
-    (1, 'ADMIN', 'Hatchback');
+                                                            (22, '3425647', 'SUV'),
+                                                            (1, 'ADMIN', 'Hatchback');
 
 -- --------------------------------------------------------
 
@@ -106,7 +114,46 @@ CREATE TABLE `parkinglots` (
 --
 
 INSERT INTO `parkinglots` (`TotalSpaces`, `LotName`) VALUES
-    (30, 'UEA main');
+                                                         (20, 'other lot'),
+                                                         (30, 'UEA main');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+                         `post_id` int(8) NOT NULL,
+                         `Title` text NOT NULL,
+                         `post_content` text NOT NULL,
+                         `post_date` datetime NOT NULL,
+                         `post_by` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `replies`
+--
+
+CREATE TABLE `replies` (
+                           `reply_id` int(11) NOT NULL,
+                           `post_id` int(8) NOT NULL,
+                           `reply_content` text NOT NULL,
+                           `reply_date` datetime NOT NULL,
+                           `reply_by` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `replies`
+--
+
 
 --
 -- Indexes for dumped tables
@@ -129,7 +176,8 @@ ALTER TABLE `booking`
     ADD PRIMARY KEY (`BookingID`),
     ADD KEY `UserID` (`UserID`),
     ADD KEY `LicensePlate` (`LicensePlate`),
-    ADD KEY `ParkingSpaceID` (`ParkingSpaceID`) USING BTREE;
+    ADD KEY `ParkingSpaceID` (`ParkingSpaceID`) USING BTREE,
+    ADD KEY `booking_ibfk_3` (`LotName`);
 
 --
 -- Indexes for table `car`
@@ -146,6 +194,19 @@ ALTER TABLE `parkinglots`
     ADD PRIMARY KEY (`LotName`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+    ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `replies`
+--
+ALTER TABLE `replies`
+    ADD PRIMARY KEY (`reply_id`),
+    ADD KEY `replies_ibfk_1` (`post_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -153,13 +214,25 @@ ALTER TABLE `parkinglots`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-    MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+    MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+    MODIFY `post_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `replies`
+--
+ALTER TABLE `replies`
+    MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -178,8 +251,13 @@ ALTER TABLE `booking`
 --
 ALTER TABLE `car`
     ADD CONSTRAINT `car_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`);
-COMMIT;
 
+--
+-- Constraints for table `replies`
+--
+ALTER TABLE `replies`
+    ADD CONSTRAINT `replies_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
