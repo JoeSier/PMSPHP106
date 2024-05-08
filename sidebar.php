@@ -4,7 +4,8 @@
             <li><a href="userBookings.php">Manage Bookings</a></li>
             <li><a href="addBalance.php">Add Balance</a></li>
             <li><a href="addCar.php">add Car</a></li>
-            <li><a href="removeCars.php">add Car</a></li>
+            <li><a href="removeCars.php">Remove Car</a></li>
+            <li><a href="Forum.php">Forum</a></li>
         </ul>
     </div>
 <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
@@ -17,6 +18,8 @@
             <li><a href="addParkingLot.php">Add parking Lot</a></li>
             <li><a href="removeParkingLot.php">Remove parking lot</a></li>
             <li><a href="contactDriver.php">Contact User</a></li>
+            <li><a href="Forum.php">Forum</a></li>
+
         </ul>
     </div>
 <?php endif; ?>
