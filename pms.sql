@@ -47,7 +47,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`) VALUES
-    (1, 1, 'ADMIN', 'ADMIN', 0.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL);
+    (1, 1, 'ADMIN', 'ADMIN', 0.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'Parklyuser@outlook.com', '1234567890', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
