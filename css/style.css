@@ -244,6 +244,9 @@ button {
     color: white; /* White text on the button */
     cursor: pointer; /* Change cursor to indicate clickable */
 }
+
+
+
 .button-container {
     display: flex;
     justify-content: flex-start; /* Aligns items to the left */
@@ -364,4 +367,20 @@ li a:hover {
 
 #previous{
     margin-left:20px;
+}
+
+.signup-button {
+    padding: 10px 20px; /* Padding for a larger button */
+    font-size: 16px; /* Font size for the text */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #5b7f01; /* Green background */
+    color: white; /* White text */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Change cursor to indicate clickable */
+    display: inline-block; /* Ensure the an*/
+}
+
+.signup-button:hover {
+    background-color: #4a6b00; /* Darken color on hover */
 }
