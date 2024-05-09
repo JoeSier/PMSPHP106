@@ -38,8 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form2') {
     }
 }
 
-// Confirmation message to the user
-echo "Your parking request has been sent. Our team will review it and get back to you soon.";
+
 
 echo "<pre>"; // Preformatted text to maintain formatting
 echo "</pre>";

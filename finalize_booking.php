@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_param("i", $booking_id);
 
         if ($stmt->execute()) {
-            echo "Requested booking removed.";
+//            echo "Requested booking removed.";
         } else {
             echo "Error removing requested booking: " . $stmt->error;
         }
