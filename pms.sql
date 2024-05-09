@@ -48,7 +48,7 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`) VALUES
                                                                                                                                                                                                                (1, 1, 'ADMIN', 'ADMIN', 3927.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL),
-                                                                                                                                                                                                               (22, 0, 'test', 'test', 3927.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
+                                                                                                                                                                                                               (2, 0, 'test', 'test', 3927.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,7 @@ CREATE TABLE `car` (
 --
 
 INSERT INTO `car` (`UserID`, `LicensePlate`, `CarType`) VALUES
-                                                            (22, '3425647', 'SUV'),
+                                                            (2, '3425647', 'SUV'),
                                                             (1, 'ADMIN', 'Hatchback');
 
 -- --------------------------------------------------------
@@ -110,9 +110,9 @@ CREATE TABLE `parkinglots` (
 -- Dumping data for table `parkinglots`
 --
 
-INSERT INTO parkinglots (TotalSpaces, LotName, GPSCoordinate)
-VALUES
-    (30, 'UEA main', '52.623315637440776, 1.2431324281764604');
+INSERT INTO `parkinglots` (`TotalSpaces`, `LotName`, `GPSCoordinate`) VALUES
+                                                                          (40, 'Medical car park', '52.62212868861406,1.234813928604126'),
+                                                                          (30, 'UEA main', '52.623315637440776, 1.2431324281764604');
 
 
 -- --------------------------------------------------------
@@ -169,8 +169,7 @@ CREATE TABLE `requestedbookings` (
                                      `timeStart` timestamp NOT NULL DEFAULT current_timestamp(),
                                      `timeEnd` timestamp NULL DEFAULT NULL,
                                      `LotName` varchar(250) NOT NULL,
-                                     `Active` int(11) NOT NULL DEFAULT 0,
-                                     `price` decimal(10,0) NOT NULL
+                                     `Active` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -242,25 +241,25 @@ ALTER TABLE `requestedbookings`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-    MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+    MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-    MODIFY `post_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `post_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `replies`
 --
 ALTER TABLE `replies`
-    MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+    MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Constraints for dumped tables

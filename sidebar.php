@@ -21,7 +21,7 @@
             <li><a href="removeParkingLot.php">Remove parking lot</a></li>
 <!--            <li><a href="contactDriver.php">Contact User</a></li>-->
             <li><a href="Forum.php">Forum</a></li>
-            <li><a href="approveBooking.php">Approve bookings</a></li>
+            <li><a href="approveBooking.php">Pending bookings</a></li>
             <li><a href="map.php">Where is my parking lot?</a></li>
         </ul>
     </div>

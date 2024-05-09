@@ -3,7 +3,6 @@
 if (isset($user) && $user["IsAdmin"] ==0 || null){
     die("you are not allowed here.");
 }
-// Assume admin authentication and session handling are in place
 include('partial/header.php');
 include('sidebar.php');
 
@@ -19,7 +18,7 @@ if ($result === false) {
 <body>
 <div class="dashContent">
 
-<h1>Booking Requests for Approval</h1>
+<h1>Pending Booking Requests</h1>
 
 <!-- Check if there are any bookings -->
 <?php if ($result->num_rows > 0): ?>
@@ -33,6 +32,7 @@ if ($result === false) {
             <th>Time Start</th>
             <th>Time End</th>
             <th>Lot Name</th>
+            <th>Action</th>
             <th>Action</th>
         </tr>
         <?php while ($row = $result->fetch_assoc()):?>
@@ -55,8 +55,21 @@ if ($result === false) {
                         <input type="hidden" name="timeStart" value="<?= $row['timeStart'] ?>">
                         <input type="hidden" name="timeEnd" value="<?= $row['timeEnd'] ?>">
                         <input type="hidden" name="LotName" value="<?= $row['LotName'] ?>">
-                        <button type="submit">Approve</button>
+                        <button type="submit" value="approve">Approve</button>
                     </form>
+                    <td>
+                    <form action="deny_booking.php" method="post">
+                        <input type="hidden" name="BookingID" value="<?= $row['BookingID'] ?>">
+                        <input type="hidden" name="UserID" value="<?= $row['UserID'] ?>">
+                        <input type="hidden" name="ParkingSpaceID" value="<?= $row['ParkingSpaceID'] ?>">
+                        <input type="hidden" name="LicensePlate" value="<?= $row['LicensePlate'] ?>">
+                        <input type="hidden" name="BookingCost" value="<?= $row['BookingCost'] ?>">
+                        <input type="hidden" name="timeStart" value="<?= $row['timeStart'] ?>">
+                        <input type="hidden" name="timeEnd" value="<?= $row['timeEnd'] ?>">
+                        <input type="hidden" name="LotName" value="<?= $row['LotName'] ?>">
+                        <button type="submit" value="deny">Deny</button>
+                    </form>
+                </td>
 
                 </td>
             </tr>
