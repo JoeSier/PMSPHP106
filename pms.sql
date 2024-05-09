@@ -101,16 +101,19 @@ INSERT INTO `car` (`UserID`, `LicensePlate`, `CarType`) VALUES
 
 CREATE TABLE `parkinglots` (
                                `TotalSpaces` int(11) NOT NULL,
-                               `LotName` varchar(250) NOT NULL
+                               `LotName` varchar(250) NOT NULL,
+                               `GPSCoordinate` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Dumping data for table `parkinglots`
 --
 
-INSERT INTO `parkinglots` (`TotalSpaces`, `LotName`) VALUES
-                                                         (20, 'other lot'),
-                                                         (30, 'UEA main');
+INSERT INTO parkinglots (TotalSpaces, LotName, GPSCoordinate)
+VALUES
+    (30, 'UEA main', '52.623315637440776, 1.2431324281764604');
+
 
 -- --------------------------------------------------------
 

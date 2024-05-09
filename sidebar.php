@@ -6,6 +6,7 @@
             <li><a href="addCar.php">add Car</a></li>
             <li><a href="removeCars.php">Remove Car</a></li>
             <li><a href="Forum.php">Forum</a></li>
+            <li><a href="map.php">Map</a></li>
         </ul>
     </div>
 <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
@@ -20,6 +21,7 @@
             <li><a href="contactDriver.php">Contact User</a></li>
             <li><a href="Forum.php">Forum</a></li>
             <li><a href="approveBooking.php">Approve bookings</a></li>
+            <li><a href="map.php">Where is my parking lot?</a></li>
 
         </ul>
     </div>
