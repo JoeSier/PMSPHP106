@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 11:01 PM
+-- Generation Time: May 09, 2024 at 05:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,7 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`UserID`, `IsAdmin`, `Firstname`, `Surname`, `Credit`, `Username`, `UserPassword`, `Email`, `PhoneNumber`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`) VALUES
                                                                                                                                                                                                                (1, 1, 'ADMIN', 'ADMIN', 3927.00, 'ADMIN', '$2y$10$2KwwhydG3Z.dRhjRB45LmO0JNV6rsEZ3wxDfinn8tHyXkbkXM..Iq', 'ADMIN@gmail.com', '1234567890', NULL, NULL, NULL),
-                                                                                                                                                                                                               (2, 0, 'test', 'test', 3927.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
+                                                                                                                                                                                                               (2, 0, 'test', 'test', 3799.00, 'test', '$2y$10$IvYV7NBFsTd3cabgkaYB..cdjIYdLg4JAsmUOaRn.NRgc1Vm0Mn.C', 'test@gmail.com', '324235425', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -67,11 +67,6 @@ CREATE TABLE `booking` (
                            `LotName` varchar(250) NOT NULL,
                            `Active` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `booking`
---
-
 
 -- --------------------------------------------------------
 
@@ -105,7 +100,6 @@ CREATE TABLE `parkinglots` (
                                `GPSCoordinate` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 --
 -- Dumping data for table `parkinglots`
 --
@@ -113,7 +107,6 @@ CREATE TABLE `parkinglots` (
 INSERT INTO `parkinglots` (`TotalSpaces`, `LotName`, `GPSCoordinate`) VALUES
                                                                           (40, 'Medical car park', '52.62212868861406,1.234813928604126'),
                                                                           (30, 'UEA main', '52.623315637440776, 1.2431324281764604');
-
 
 -- --------------------------------------------------------
 
@@ -129,11 +122,6 @@ CREATE TABLE `posts` (
                          `post_by` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `posts`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -147,12 +135,6 @@ CREATE TABLE `replies` (
                            `reply_date` datetime NOT NULL,
                            `reply_by` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `replies`
---
-
-
 
 -- --------------------------------------------------------
 
@@ -247,19 +229,25 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-    MODIFY `post_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+    MODIFY `post_id` int(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `replies`
 --
 ALTER TABLE `replies`
-    MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+    MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `requestedbookings`
+--
+ALTER TABLE `requestedbookings`
+    MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Constraints for dumped tables
