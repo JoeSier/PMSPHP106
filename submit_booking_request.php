@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form2') {
     $stmt = $mysqli->prepare("INSERT INTO requestedbookings (UserID, ParkingSpaceID, LicensePlate, BookingCost, timeStart, timeEnd, LotName) VALUES (?, ?, ?, ?, ?, ?,?)");
 
     if ($stmt) {
-        $stmt->bind_param("iisisss", $userID, $parking_space, $license_plate, $price, $desiredStart, $desiredEnd, $lotName);
+        $stmt->bind_param("iisdsss", $userID, $parking_space, $license_plate, $price, $desiredStart, $desiredEnd, $lotName);
 
         // Execute and check for errors
         if ($stmt->execute()) {
