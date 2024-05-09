@@ -3,8 +3,8 @@
         <ul> <!-- Added unordered list to wrap the list items -->
             <li><a href="userBookings.php">Manage Bookings</a></li>
             <li><a href="addBalance.php">Add Balance</a></li>
-            <li><a href="addCar.php">Add Car</a></li>
-            <li><a href="removeCars.php">Remove Car</a></li>
+            <li><a href="addCar.php">add Car</a></li>
+            <li><a href="removeCars.php">add Car</a></li>
         </ul>
     </div>
 <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>

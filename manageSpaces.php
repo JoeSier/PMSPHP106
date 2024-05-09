@@ -5,7 +5,7 @@ include('sidebar.php');
 
 <body>
 <div class="dashContent">
-    <a href="changeBookingLocation.php"> change assigned location</a>
+<!--    <a href="changeBookingLocation.php"> change assigned location</a>-->
     <br>
     <a href="booking.php"> reserve a space</a>
     <br>

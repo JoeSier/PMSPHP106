@@ -1,65 +1,84 @@
 <?php
 include('partial/header.php');
 include('sidebar.php');
+
+
+
 ?>
 
 <body>
 
 <div class="dashContent">
-    <?php if (htmlspecialchars($user["IsAdmin"]) == 0): ?>
+
+<!--    code for user-->
+    <?php if (isset($user) && $user["IsAdmin"] == 0): ?>
         <h1>Welcome back, <?= htmlspecialchars($user["Username"]) ?></h1>
         <h2>User Dashboard</h2>
         <p><br>Your current balance is: <?= htmlspecialchars($user["Credit"]) ?></p>
 
 
-    <?php elseif (htmlspecialchars($user["IsAdmin"]) > 0): ?>
+<!--    code for admin-->
+        <!-- Code for admin -->
+   <?php elseif (isset($user) && $user["IsAdmin"] > 0): ?>
         <h1>Welcome back, <?= htmlspecialchars($user["Username"]) ?></h1>
         <h2>Admin Dashboard</h2>
-    <?php else: ?>
-        <p>couldn't detect if admin</p>
-    <?php endif; ?>
 
+        <!-- Notification for bookings where users haven't arrived yet -->
+        <?php
+        $query = "SELECT * FROM booking WHERE Active = 0 AND timeStart <= DATE_SUB(NOW(), INTERVAL 1 HOUR)";
+
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // Display notification for bookings where users haven't arrived
+                echo '<div class="notification">';
+                echo '<p>Bookings where users havent arrived an hour after start:</p>';
+                echo '<ul>';
+                while ($row = $result->fetch_assoc()) {
+                    echo '<li>Booking ID: ' . htmlspecialchars($row['BookingID']) . ', Lot Name: ' . htmlspecialchars($row['LotName']) . '</li>';
+                }
+                echo '</ul>';
+                echo '</div>';
+            }
+
+            $stmt->close();
+        } else {
+            echo '<p>Unable to retrieve data. Please try again later.</p>';
+        }
+        ?>
+
+        <!-- Notification for bookings where users are still active an hour after their end time -->
+        <?php
+        $query = "SELECT * FROM booking WHERE Active = 1 AND timeEnd IS NOT NULL AND timeEnd <= DATE_SUB(NOW(), INTERVAL 1 HOUR)";
+
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // Display notification for bookings where users are still active after timeEnd
+                echo '<div class="notification">';
+                echo '<p>Bookings where users are still active an hour after their end time:</p>';
+                echo '<ul>';
+                while ($row = $result->fetch_assoc()) {
+                    echo '<li>Booking ID: ' . htmlspecialchars($row['BookingID']) . ', Lot Name: ' . htmlspecialchars($row['LotName']) . '</li>';
+                }
+                echo '</ul>';
+                echo '</div>';
+            }
+
+            $stmt->close();
+        } else {
+            echo '<p>Unable to retrieve data. Please try again later.</p>';
+        }
+        ?>
+
+    <?php else: ?>
+        <p>Unable to determine user role.</p>
+    <?php endif; ?>
 
 </div>
 
-
-
 </body>
-
-<?php
-$mysqli = require __DIR__ . "/database.php";
-
-$seb = "SELECT * FROM booking WHERE UserID = {$_SESSION["UserID"]}";
-$res = $mysqli->query($seb);
-if ($res) {
-    // Fetch all rows from the result set
-    $bookings = [];
-    while ($row = $res->fetch_assoc()) {
-        $bookings[] = $row;  // Append the row to the bookings array
-    }
-
-    // Display the fetched bookings in a readable format
-    print_r( "<p> Booking History <p>");
-    echo "<p>NoOfBookings: " . sizeof($bookings) . "</p>";
-//    print_r(sizeof($bookings));
-    foreach ($bookings as $booking) {
-        echo "<pre>"; // Optional, makes it easier to format
-        printf("<br>ParkingID: <br>");
-        print_r($booking["ParkingSpaceID"]);
-        printf("<br>License Plate: <br>");
-        print_r($booking["LicensePlate"]);
-        printf("<br>Booking Cost: <br>");
-        print_r($booking["BookingCost"]);
-        printf("<br>Time Start: <br>");
-        print_r($booking["timeStart"]);
-        printf("<br>Time End: <br>");
-        print_r($booking["timeEnd"]);
-        echo "</pre>";
-        echo "<br>"; // Move to the next line
-    }
-} else {
-    echo "Query failed: " . $mysqli->error;
-}
-
-
-?>

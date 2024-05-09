@@ -2,120 +2,110 @@
 include('partial/header.php');
 include('sidebar.php');
 $mysqli = require __DIR__ . "/database.php";
-$loadChart=false;
+$loadChart = false;
 
+$parkingLots = [];
+$selectedParkingLot = null;
+$totalSpaces = 0;
+$times = [];
+$selectedDate = null;
+
+// Fetch available parking lots
 $stmt = $mysqli->prepare("SELECT LotName FROM parkingLots");
 $stmt->execute();
 $result = $stmt->get_result();
-$parkingLot = $result->fetch_all(MYSQLI_ASSOC);
+$parkingLots = $result->fetch_all(MYSQLI_ASSOC);
 
-// Determine if the user is an admin
+// Check if the user is authorized
 $isAdmin = intval($user["IsAdmin"]) > 0;
 
-// Prepare the appropriate SQL query
-if ($isAdmin):
-    $query = "SELECT timestart, timeend FROM booking";  // Admins see all bookings
-
-if (!$isAdmin){
-    die("you are not authorized to access this page");
+if (!$isAdmin) {
+    die("You are not authorized to access this page");
 }
-// Prepare the SQL statement
-$stmt = $mysqli->prepare($query);
-
-if ($stmt === false) {
-    die("Error preparing SQL statement: " . $mysqli->error);  // SQL preparation failed
-}
-
-
-
-// Execute the SQL statement
-if (!$stmt->execute()) {
-    die("Error executing SQL statement: " . $stmt->error);  // SQL execution failed
-}
-
-// Retrieve the results
-$result = $stmt->get_result();
-
-if ($result === false) {
-    die("Error retrieving results: " . $stmt->error);  // Fetching results failed
-}
-$times = [];
-// Check if there are any results
-if ($result->num_rows === 0) {
-    echo "No bookings found.";  // No results, likely no bookings for this user
-} else {
-    // Store the results in an array
-    while ($row = $result->fetch_assoc()) {
-        $times[] = $row;  // Store each booking record
-    }
-
-    // Output the results for debugging or processing
-//    print_r($times);  // Output the bookings data (for debugging or further processing)
-}
-
-// Close the statement
-$stmt->close();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $selectedParkingLot = isset($_POST['parkingLot']) ? $_POST['parkingLot'] : ""; // Get the selected value
-    $stmt = $mysqli->prepare("SELECT TotalSpaces FROM parkingLots where LotName=?");
-    $stmt->bind_param("s", $_POST['parkingLot']);
-    $stmt->execute();
-    $result1 = $stmt->get_result();
-    $parkingSpaces = null;
-    if ($row = $result1->fetch_assoc()) {
-        $parkingSpaces = intval($row['TotalSpaces']);
-        $loadChart = true;
+    // Handle parking lot selection
+    if (isset($_POST['parkingLot'])) {
+        $selectedParkingLot = $_POST['parkingLot'];
 
-    }
+        if ($selectedParkingLot) {
+            // Fetch total spaces for the selected parking lot
+            $stmt = $mysqli->prepare("SELECT TotalSpaces FROM parkingLots WHERE LotName = ?");
+            $stmt->bind_param("s", $selectedParkingLot);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $totalSpaces = intval($result->fetch_assoc()["TotalSpaces"]);
 
-        // Fetch the booking data for the selected parking lot
-    $stmt = $mysqli->prepare("SELECT timestart, timeend FROM booking WHERE LotName = ?");
-    $stmt->bind_param("s", $_POST['parkingLot']);
-    if (!$stmt->execute()) {
-        die("Error executing SQL statement: " . $stmt->error);
-    }
-    $result = $stmt->get_result();
-    $times = [];
-    while ($row = $result->fetch_assoc()) {
-        $times[] = $row;
-    }
+            // Fetch booking data for the selected parking lot
+            $stmt = $mysqli->prepare("SELECT timestart, timeend FROM booking WHERE LotName = ?");
+            $stmt->bind_param("s", $selectedParkingLot);
+            if (!$stmt->execute()) {
+                die("Error executing SQL statement: " . $stmt->error);
+            }
 
-// Function to get occupied spaces per day for a given month
-    function getOccupiedSpacesPerDay($times, $year, $month)
-    {
-        $occupiedSpaces = [];
-
-        // Get the number of days in the specified month
-        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-
-        // Initialize occupied spaces for each day in the month
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $date = sprintf("%04d-%02d-%02d", $year, $month, $day);
-            $occupiedSpaces[$date] = 0;
+            $result = $stmt->get_result();
+            $times = $result->fetch_all(MYSQLI_ASSOC);
+            $loadChart = true;
         }
+    }
 
-        // Update occupied spaces based on bookings
-        foreach ($times as $booking) {
-            $bookingStart = strtotime(date('Y-m-d', strtotime($booking['timestart'])));
-            $bookingEnd = strtotime(date('Y-m-d', strtotime($booking['timeend'])));
+    // Handle date selection for occupied spaces
+    if (isset($_POST['selectedDate'])) {
+        $selectedDate = $_POST['selectedDate'];
+        if ($selectedDate && $selectedParkingLot) {
+            $occupiedSpacesOnSelectedDate = 0;
+            $selectedDateStart = strtotime($selectedDate); // Start of selected day
+            $selectedDateEnd = strtotime("+1 day", $selectedDateStart); // End of selected day
 
-            foreach (array_keys($occupiedSpaces) as $date) {
-                $dayTimestamp = strtotime($date);
+            foreach ($times as $booking) {
+                $bookingStart = strtotime($booking['timestart']);
+                $bookingEnd = strtotime($booking['timeend']);
 
-                if ($bookingStart <= $dayTimestamp && $dayTimestamp <= $bookingEnd) {
-                    $occupiedSpaces[$date]++;
+                // Check if the selected date is within the booking period
+                if ($bookingStart < $selectedDateEnd && $selectedDateStart < $bookingEnd) {
+                    $occupiedSpacesOnSelectedDate++;
                 }
             }
         }
+    }
+}
 
-        return $occupiedSpaces;
+$currentYear = date("Y");
+
+// ccupied spaces per day for a given month
+function getOccupiedSpacesPerDay($times, $year, $month) {
+    // Initialize an array with all dates in the month set to zero bookings
+    $occupiedSpaces = [];
+    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    for ($day = 1; $day <= $daysInMonth; $day++) {
+        $date = sprintf("%04d-%02d-%02d", $year, $month, $day);
+        $occupiedSpaces[$date] = 0;
     }
 
-// Get the current year
-    $currentYear = date("Y");
-    if ($loadChart) {
-    $chartHTML = ""; // Reset the chart HTML
+    // Loop over each booking to check if it falls within any of the days in the month
+    foreach ($times as $booking) {
+        $bookingStart = strtotime($booking['timestart']);
+        $bookingEnd = strtotime($booking['timeend']);
+
+        foreach (array_keys($occupiedSpaces) as $date) {
+            $dayStart = strtotime($date);  // Beginning of the day
+            $dayEnd = $dayStart + 86400;   // End of the day (midnight of the next day)
+
+            // Check if the booking overlaps with the current day
+            if ($bookingStart < $dayEnd && $dayStart < $bookingEnd) {
+                $occupiedSpaces[$date] += 1;  // Increment the count for that day
+            }
+        }
+    }
+
+    return $occupiedSpaces;
+}
+
+
+
+$chartHTML = "";
+
+if ($selectedParkingLot) {
     for ($month = 1; $month <= 12; $month++) {
         $occupiedSpaces = getOccupiedSpacesPerDay($times, $currentYear, $month);
 
@@ -123,105 +113,120 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $dates = array_keys($occupiedSpaces);
         $counts = array_values($occupiedSpaces);
 
-        // Create a canvas for each chart with a unique ID
         $chartHTML .= "
-       <div id='chart-container-$month' class='chart-container' style='display: none;'>
-        <canvas id='occupiedSpacesChart-$month' width='400' height='200'></canvas>
-        <script>
-            var ctx = document.getElementById('occupiedSpacesChart-$month').getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: " . json_encode($dates) . ",
-                    datasets: [{
-                        label: 'Occupied Spaces in $monthName',
-                        data: " . json_encode($counts) . ",
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: $parkingSpaces // Maximum number of spaces in the selected parking lot
+            <div id='chart-container-$month' class='chart-container' style='display: none;'>
+                <canvas id='occupiedSpacesChart-$month' width='400' height='200'></canvas>
+                <script>
+                    var ctx = document.getElementById('occupiedSpacesChart-$month').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: " . json_encode($dates) . ",
+                            datasets: [{
+                                label: 'Occupied Spaces in $monthName',
+                                data: " . json_encode($counts) . ",
+                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: $totalSpaces
+                                }
+                            }
                         }
-                    }
-                }
-            });
-        </script>
-    </div>";
+                    });
+                </script>
+            </div>";
     }
-    }
-    }
-
-    endif;
+}
 
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container { width: 100%; }
+    </style>
 </head>
 <body>
-<!-- Buttons to navigate between graphs -->
-<div class='dashContent'>
-    <div id="displayBookingForm">
+<div class="dashContent">
     <form method="post" id="bookingForm">
-<!--        <label for="parkingLot">Parking Lot:</label>-->
         <select name="parkingLot" id="parkingLot">
             <option value="">Select a Parking Lot</option>
             <?php
-            foreach ($parkingLot as $lot) {
-                $isSelected = $selectedParkingLot === $lot["LotName"] ? "selected" : ""; // Check if it's the selected lot
+            foreach ($parkingLots as $lot) {
+                $isSelected = $selectedParkingLot === $lot["LotName"] ? "selected" : "";
                 echo "<option value=\"" . htmlspecialchars($lot["LotName"]) . "\" $isSelected>" . htmlspecialchars($lot["LotName"]) . "</option>";
             }
             ?>
         </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
-        <button>Submit</button>
-        </form>
+<div class="dashContent">
+    <button id="previous" class="topSpace" onclick="showPrevious()">Previous</button>
+    <button id="next" class="topSpace" onclick="showNext()">Next</button>
+</div>
+
+<div class="dashContent">
+    <div id="chart-area">
+        <?php echo $chartHTML; ?>
     </div>
-<button id="previous" class="topSpace" onclick="showPrevious()">Previous</button>
-<button id="next" class="topSpace" onclick="showNext()">Next</button>
 </div>
 
-<!-- Container for all chart canvases -->
-<div class='dashContent'>
-<div id="chart-area">
-    <?php echo $chartHTML; ?>
-</div>
+<div class="dashContent">
+    <?php
+    if ($selectedParkingLot) {
+        echo "<p>Total Spaces: $totalSpaces</p>";
+
+        // Display date selection form
+        echo "<form method='post' id='dateForm'>";
+        echo "<input type='hidden' name='parkingLot' value='" . htmlspecialchars($selectedParkingLot) . "'>";
+        echo "<label for='selectedDate'>Select a Date:</label>";
+        echo "<input type='date' name='selectedDate' id='selectedDate' value='" . htmlspecialchars($selectedDate) . "'>";
+        echo "<button type='submit'>Submit</button>";
+        echo "</form>";
+
+        // Display occupied spaces for the selected date
+        if ($selectedDate) {
+            echo "<p>Occupied Spaces on " . htmlspecialchars($selectedDate) . ": $occupiedSpacesOnSelectedDate</p>";
+        }
+    } else {
+        echo "<p>Select a parking lot to view details.</p>";
+    }
+    ?>
 </div>
 
 <script>
     let currentChartIndex = 0;
     const chartContainers = document.querySelectorAll('.chart-container');
 
-    // Function to show the specified chart
     function showChart(index) {
-        // Hide all charts
-        chartContainers.forEach((container) => {
+        chartContainers.forEach(container => {
             container.style.display = 'none';
         });
 
-        // Display the specified chart
         if (index >= 0 && index < chartContainers.length) {
             chartContainers[index].style.display = 'block';
             currentChartIndex = index;
         }
     }
 
-    // Show the first chart initially
     showChart(0);
 
-    // Function to navigate to the previous chart
     function showPrevious() {
         if (currentChartIndex > 0) {
             showChart(currentChartIndex - 1);
         }
     }
 
-    // Function to navigate to the next chart
     function showNext() {
         if (currentChartIndex < chartContainers.length - 1) {
             showChart(currentChartIndex + 1);
