@@ -10,6 +10,8 @@ include('sidebar.php');
     <a href="booking.php"> reserve a space</a>
     <br>
     <a href="booking.php"> block a space</a>
+    <br>
+    <a href="deleteBooking.php"> Delete Booking</a>
 
 
 

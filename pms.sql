@@ -169,18 +169,20 @@ ALTER TABLE `booking`
 -- Constraints for table `booking`
 --
 ALTER TABLE `booking`
-    ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`),
-    ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`LicensePlate`) REFERENCES `car` (`LicensePlate`),
-    ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`LotName`) REFERENCES `parkinglots` (`LotName`);
+    ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`) ON DELETE CASCADE,
+    ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`LicensePlate`) REFERENCES `car` (`LicensePlate`) ON DELETE CASCADE,
+    ADD CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`LotName`) REFERENCES `parkinglots` (`LotName`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `car`
 --
 ALTER TABLE `car`
-    ADD CONSTRAINT `car_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`);
+    ADD CONSTRAINT `car_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`) ON DELETE CASCADE;
 COMMIT;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+

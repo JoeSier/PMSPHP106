@@ -33,7 +33,9 @@ endif;
 
 <body>
 <div class="dashContent">
-<p>placeholder</p>
+    <a href="deleteDriver.php"> Delete Driver Account</a>
+
+
 </div>
 
 
