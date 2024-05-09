@@ -60,13 +60,6 @@ if ($result === false) {
                     <td>
                     <form action="deny_booking.php" method="post">
                         <input type="hidden" name="BookingID" value="<?= $row['BookingID'] ?>">
-                        <input type="hidden" name="UserID" value="<?= $row['UserID'] ?>">
-                        <input type="hidden" name="ParkingSpaceID" value="<?= $row['ParkingSpaceID'] ?>">
-                        <input type="hidden" name="LicensePlate" value="<?= $row['LicensePlate'] ?>">
-                        <input type="hidden" name="BookingCost" value="<?= $row['BookingCost'] ?>">
-                        <input type="hidden" name="timeStart" value="<?= $row['timeStart'] ?>">
-                        <input type="hidden" name="timeEnd" value="<?= $row['timeEnd'] ?>">
-                        <input type="hidden" name="LotName" value="<?= $row['LotName'] ?>">
                         <button type="submit" value="deny">Deny</button>
                     </form>
                 </td>
