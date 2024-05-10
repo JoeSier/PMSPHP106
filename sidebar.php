@@ -3,8 +3,7 @@
         <ul> <!-- Added unordered list to wrap the list items -->
             <li><a href="userBookings.php">Manage Bookings</a></li>
             <li><a href="addBalance.php">Add Balance</a></li>
-            <li><a href="addCar.php">add Car</a></li>
-            <li><a href="removeCars.php">add Car</a></li>
+            <li><a href="displayusercars.php">Manage your Cars</a></li>
             <li><a href="Forum.php">Forum</a></li>
             <li><a href="map.php">Where is my parking lot?</a></li>
         </ul>
