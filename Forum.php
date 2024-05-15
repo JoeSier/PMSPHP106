@@ -30,10 +30,10 @@ if ($stmt) {
 
         echo "</div>";
     } else {
-        echo "<div class='dashContent'>";
-        echo "<h1>Forum Conversations</h1>";
-        echo "<a href='/CreatePost.php'>Make a new conversation</a>";
-        echo "<p>No conversations found. Start a new one!</p>";
+        echo "<div class='box_dash_other'>";
+        echo "<h1 class='h1' >Forum Conversations</h1>";
+        echo "<a class='button' id='forum' href='/CreatePost.php'>Make a new conversation</a>";
+        echo "<p class='text'>No conversations found. Start a new one!</p>";
         echo "</div>";
     }
 

@@ -16,9 +16,9 @@ if ($result === false) {
 
 
 <body>
-<div class="dashContent">
+<div class="box_dash_other">
 
-<h1>Pending Booking Requests</h1>
+<h1 class="h1">Pending Booking Requests</h1>
 
 <!-- Check if there are any bookings -->
 <?php if ($result->num_rows > 0): ?>
@@ -69,7 +69,7 @@ if ($result === false) {
         <?php endwhile; ?>
     </table>
 <?php else: ?>
-    <p>No booking requests found.</p>
+    <p class="text">No booking requests found.</p>
 <?php endif; ?>
 </div>
 </body>

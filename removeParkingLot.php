@@ -32,12 +32,12 @@ $stmt->close();
 $mysqli->close();
 ?>
 <body>
-<div class="dashContent">
-    <h1>Remove a Parking Lot</h1>
+<div class="box_dash_other">
+    <h1 class="h1">Remove a Parking Lot</h1>
     <div id="loginform">
-        <form method="post">
-            <label for="parkingLot">Parking Lot Name:</label>
-            <select name="parkingLot" id="parkingLot">
+        <form  method="post">
+            <label class="label" for="parkingLot">Parking Lot Name:</label>
+            <select class="input" name="parkingLot" id="parkingLot">
                 <option value="">Select a Parking Lot to remove</option>
                 <?php
                 // Populate the select field with the user's cars
@@ -47,7 +47,7 @@ $mysqli->close();
                 }
                 ?>
             </select>
-            <button type="submit">Remove LOT</button>
+            <button class="button" type="submit">Remove the lot</button>
         </form>
         <?php if ($successMessage): ?>
             <div class="successMessage"><?php echo htmlspecialchars($successMessage); ?></div>

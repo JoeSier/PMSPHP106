@@ -71,24 +71,24 @@ $mysqli->close();
 ?>
 
 <body>
-<div class="dashContent">
+<div class="box_dash_other">
     <h1>Add a New Car</h1>
     <div id="loginform">
         <form method="post" id="addLotForm">
-            <label for="Name">Enter name of parking lot:</label>
-            <input type="text" name="LotName" id="LotName">
-            <label for="TotalSpaces">Enter amount of spaces:</label>
-            <input type="number" name="TotalSpaces" id="TotalSpaces">
-            <input type="hidden" name="GPSCoordinate" id="GPSCoordinate">
+            <label class="label" for="Name">Enter name of parking lot:</label>
+            <input class="input" type="text" name="LotName" id="LotName">
+            <label class="label" for="TotalSpaces">Enter amount of spaces:</label>
+            <input class="input" type="number" name="TotalSpaces" id="TotalSpaces">
+            <input class="input" type="hidden" name="GPSCoordinate" id="GPSCoordinate">
 
-            <button type="submit">Add Lot</button>
+            <button class="button" type="submit">Add Lot</button>
         </form>
         <?php if ($successMessage): ?>
             <div class="successMessage"><?php echo htmlspecialchars($successMessage); ?></div>
         <?php endif; ?>
     </div>
 
-    <h2>Choose location:</h2>
+    <h2 class="h2">Choose location:</h2>
 
     <div id="map" style="height: 400px; width: 70%; margin-bottom: 20px;"></div>
 </div>

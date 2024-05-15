@@ -36,7 +36,7 @@ $mysqli->close();
 
 <body>
 <div class="dashContent">
-    <h2>Where is my parking lot?</h2>
+    <h2 class="h2">Where is my parking lot?</h2>
 
     <div id="map" style="height: 800px; width: 100%; margin-bottom: 20px;"></div>
 </div>
