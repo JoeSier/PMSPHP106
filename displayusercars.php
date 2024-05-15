@@ -59,7 +59,7 @@ try {
                         <form class="form" method="post">
                             <!-- Use LicensePlate to identify the car to be removed -->
                             <input class="input" type="hidden" name="LicensePlate" value="<?= htmlspecialchars($row['LicensePlate']) ?>">
-                            <button id="remove_car_user" class="button" type="submit">Remove</button>
+                            <button id="remove_car_user" type="submit">Remove</button>
                         </form>
                     </td>
                 </tr>
@@ -68,7 +68,7 @@ try {
     <?php else: ?>
         <p>No Cars Found.</p>
     <?php endif; ?>
-    <li><a  href="addCar.php">add Car</a></li>
+    <li><a class="button" id="addCar" href="addCar.php">add Car</a></li>
 <!--    <li><a href="removeCars.php">Remove Car</a></li>-->
 </div>
 </body>

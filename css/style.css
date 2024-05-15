@@ -160,7 +160,7 @@ width:auto;
     margin-top: 20px;
 }
 
-#block, #delete, #reserve, #forum{
+#block, #delete, #reserve, #forum, #addCar{
     /*margin-right: 490px;*/
     border-radius: 10px;
     margin-top: 20px;
@@ -309,7 +309,7 @@ width:auto;
     padding-left: 20px;
 }
 
-#change_book, #add_car, #remove_car_user {
+#change_book, #add_car, #remove_car_user{
     font-size: 20px;
     background-color: white;
     text-decoration: none;
