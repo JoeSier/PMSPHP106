@@ -309,7 +309,7 @@ width:auto;
     padding-left: 20px;
 }
 
-#change_book {
+#change_book, #add_car, #remove_car_user {
     font-size: 20px;
     background-color: white;
     text-decoration: none;

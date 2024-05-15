@@ -68,8 +68,8 @@ try {
     <?php else: ?>
         <p>No Cars Found.</p>
     <?php endif; ?>
-    <li><a  href="addCar.php">add Car</a></li>
-<!--    <li><a href="removeCars.php">Remove Car</a></li>-->
+    <li><a id="add_car" href="addCar.php">add Car</a></li>
+    <li><a id="remove_car_user" href="removeCars.php">Remove Car</a></li>
 </div>
 </body>
 </html>
