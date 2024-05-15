@@ -56,7 +56,7 @@ try {
                     <td><?= htmlspecialchars($row['LicensePlate']) ?></td>
                     <td><?= htmlspecialchars($row['CarType']) ?></td>
                     <td>
-                        <form class="form" method="post">
+                        <form  method="post">
                             <!-- Use LicensePlate to identify the car to be removed -->
                             <input class="input" type="hidden" name="LicensePlate" value="<?= htmlspecialchars($row['LicensePlate']) ?>">
                             <button id="remove_car_user" type="submit">Remove</button>
