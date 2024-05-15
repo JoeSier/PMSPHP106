@@ -147,14 +147,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
 ?>
 
 <body>
-<div id="booking-cont">
+<div class="box">
 <h1 class="title">Make a booking</h1>
     <div id="booking-form">
-<form method="post" onsubmit="return validateForm()">
-    <input type="hidden" name="form_type" value="form1">
+<form class="form" method="post" onsubmit="return validateForm()">
+    <input class="input" type="hidden" name="form_type" value="form1">
 
-    <label for="parkingLot">Parking Lot:</label>
-    <select name="parkingLot" id="parkingLot">
+    <label class="label" for="parkingLot">Parking Lot:</label>
+    <select class="input" name="parkingLot" id="parkingLot">
         <option value="">Select a Parking Lot</option>
         <?php
         // Populate the select field with the user's cars
@@ -164,11 +164,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         }
         ?>
     </select>
-    <label for="start_date">Start Date:</label>
-    <input type="date" id="start_date" name="start_date" min="<?php echo date('Y-m-d'); ?>" required><br>
+    <label class="label" for="start_date">Start Date:</label>
+    <input class="input" type="date" id="start_date" name="start_date" min="<?php echo date('Y-m-d'); ?>" required><br>
 
-    <label for="start_time">Start Time:</label>
-    <select id="start_time" name="start_time" required>
+    <label class="label" for="start_time">Start Time:</label>
+    <select class="input" id="start_time" name="start_time" required>
         <?php
         // Generate options for 30-minute intervals from 00:00 to 23:30
         $start = strtotime('00:00');
@@ -183,11 +183,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         ?>
     </select><br>
 
-    <label for="end_date">End Date:</label>
-    <input type="date" id="end_date" name="end_date" min="<?php echo date('Y-m-d'); ?>" required><br>
+    <label class="label" for="end_date">End Date:</label>
+    <input class="input" type="date" id="end_date" name="end_date" min="<?php echo date('Y-m-d'); ?>" required><br>
 
-    <label for="end_time">End Time:</label>
-    <select id="end_time" name="end_time" required>
+    <label class="label" for="end_time">End Time:</label>
+    <select class="input" id="end_time" name="end_time" required>
         <?php
         // Generate options for 30-minute intervals from 00:00 to 23:30
         for ($time = $start;
@@ -198,8 +198,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         ?>
     </select><br>
 
-    <label for="license_plate">Select car:</label>
-    <select name="license_plate" id="license_plate" required>
+    <label class="label" for="license_plate">Select car:</label>
+    <select class="input" name="license_plate" id="license_plate" required>
         <option value="">License plate</option>
         <?php
         // Populate the select field with the user's cars
@@ -210,10 +210,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form1') {
         ?>
     </select><br>
 
-    <label for="price">Session Price:</label>
-    <input type="number" id="price" name="price" readonly required><br>
+    <label class="label" for="price">Session Price:</label>
+    <input class="input" type="number" id="price" name="price" readonly required><br>
 
-    <button type="submit">Submit</button>
+    <button class="button" type="submit">Submit</button>
 </form>
     </div>
 </div>

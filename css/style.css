@@ -7,8 +7,13 @@
     text-decoration: none;
 }
 
+h1{
+   font-size: 40px;
+    padding-top: 20px;
+}
+
 .cc-selector input{
-    margin:0;padding:0;
+    padding:0;
     margin-left:50px;
     -webkit-appearance:none;
     -moz-appearance:none;
@@ -80,7 +85,7 @@ width:auto;
 .logo {
     max-width: 240px;
     max-height: 240px;
-    margin: 0px;
+    margin: 0;
     cursor: pointer;
     float: left;
     z-index: 1;
@@ -163,9 +168,9 @@ width:auto;
 
 /*/////////////////homepage/////////////////////////*/
 
-/*/////////////signup///////login/////////////////////*/
+/*/////////////signup///////login////////booking/////////////*/
 
-#loginform{
+.form{
     /*text-decoration-style:*/
     margin: auto;
     display: flex;
@@ -173,7 +178,7 @@ width:auto;
     width: 500px; /* Set a fixed width for consistent layout */
 }
 
-#loginbox{
+.box{
     padding-top: 100px;
     padding-bottom: 50px;
     /*background-color: rgb(91, 127, 1);*/
@@ -186,11 +191,11 @@ width:auto;
     width: 700px;
 }
 
-.login_signin_label {
+.label {
     text-align: left;
 }
 
-.login_signin_input {
+.input {
     border: 2px solid black;
     padding-bottom: 10px;
     border-radius: 20px ;
@@ -200,7 +205,12 @@ width:auto;
     padding-bottom: 20px;
 }
 
-.login_signin_button {
+#question{
+    padding-top: 20px;
+    color: blue;
+}
+.button {
+
     padding: 10px 20px;
     font-size: 20px;
     border: none;
@@ -210,6 +220,7 @@ width:auto;
     text-decoration: none;
     cursor: pointer;
     display: inline-block;
+    margin: auto;
 }
 
 .login_buttons_div {
@@ -217,25 +228,15 @@ width:auto;
     padding-bottom: 10px;
 }
 
+#second_button {
+    padding-left: 20px;
+}
+
 /*/////////////signup///////login/////////////////////*/
 
 
 
-#booking-cont{
-    padding-top:10%;
-    padding-left:15%;
-    /*margin-left:30%;*/
-    /*margin-right:30%;*/
-    /*margin-top:20%;*/
-}
 
-#booking-form{
-    /*text-decoration-style:*/
-    padding-left:20px;
-    display: flex;
-    flex-direction: column;
-    width: 300px; /* Set a fixed width for consistent layout */
-}
 
 
 .title{
@@ -245,34 +246,19 @@ width:auto;
 
 
 
-#displayBookingForm{
-    padding-left:20px;
-    width: 300px; /* Set a fixed width for consistent layout */
-}
 
 
-#bookingForm{
-    display: flex;
-    align-items: center; /* Align items vertically */
-}
-
-#bookingForm label {
 
 
-    margin-right: 10px; /* Add some space between the label and the select box */
-}
-
-#bookingForm select {
-    margin-bottom: 0;
-    margin-right: 10px; /* Add some space between the select box and the button */
-    width: 250px;
-}
 
 
-.logintext{
-    font-size:40px;
 
-}
+
+
+/*.logintext{*/
+/*    font-size:40px;*/
+
+/*}*/
 
 label {
     display: block; /* Ensure label is on its own line */
@@ -312,17 +298,7 @@ button:hover {
     background-color: #2c5923; /* Slightly darker green on hover */
 }
 
-.sideSpace{
-    margin-left:10px;
-}
 
-.topSpace{
-    margin-top:10px;
-}
-
-.bottomSpace{
-    padding-bottom:10px;
-}
 
 .nav-container {
     display: flex;
@@ -398,6 +374,10 @@ li a:hover {
     margin-left: 320px; /* Adjust to ensure it's clear of the sidebar */
     padding: 20px; /* Add padding for comfortable text placement */
 
+}
+
+.grid {
+    font-size: 30px;
 }
 
 #chart-area{

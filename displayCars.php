@@ -51,7 +51,7 @@ try {
                 <th>Actions</th>
             </tr>
             <?php while ($row = $cars->fetch_assoc()): ?>
-                <tr>
+                <tr class="grid">
                     <td><?= htmlspecialchars($row['UserID']) ?></td>
                     <td><?= htmlspecialchars($row['LicensePlate']) ?></td>
                     <td><?= htmlspecialchars($row['CarType']) ?></td>

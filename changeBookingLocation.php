@@ -6,7 +6,7 @@ include('sidebar.php');
 <body>
 <div class="dashContent">
 <h1> Change Location of a booking</h1>
-    <div id="loginform">
+    <div id="loginform" class="dashContent">
         <form method="post">
             <label for="License">Car license:</label>
             <select name="License" id="License">
