@@ -42,28 +42,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         <form method="post">
-            <label for="email">email</label>
-            <input type="email" name="email" id="email"
+            <label class="login_signin_label" for="email">Email</label>
+            <input class="login_signin_input" type="email" name="email" id="email"
                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
 
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-            <div class="button-container">
-                <button>Log in</button>
+            <label class="login_signin_label" for="password">Password</label>
+            <input class="login_signin_input" type="password" name="password" id="password">
+            <div class="login_buttons_div">
+            <button class="login_signin_button">Log in</button>
         </form>
-        <p class="sideSpace"></p>
-        <a href="signup.php" class="signup-button">Sign up</a>
+            <a href="signup.php"  class="login_signin_button">Sign up</a>
+        </div>
     </div>
     <?php if ($is_invalid): ?>
         <em>Invalid login</em>
     <?php endif; ?>
 
-    <a class="topSpace" href="forgotPassword.php">Forgot password?</a>
-</div>
+    <a class="topSpace" href="forgotPassword.php">Forgot your password?</a>
 </div>
 </body>
-</html>
-
 
 
 

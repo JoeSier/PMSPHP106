@@ -163,14 +163,62 @@ width:auto;
 
 /*/////////////////homepage/////////////////////////*/
 
+/*/////////////signup///////login/////////////////////*/
+
+#loginform{
+    /*text-decoration-style:*/
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 500px; /* Set a fixed width for consistent layout */
+}
 
 #loginbox{
-    padding-top:10%;
-    padding-left:15%;
-    /*margin-left:30%;*/
-    /*margin-right:30%;*/
-    /*margin-top:20%;*/
+    padding-top: 100px;
+    padding-bottom: 50px;
+    /*background-color: rgb(91, 127, 1);*/
+    /*height:700px;*/
+    /*display: grid;*/
+    text-align: center;
+    margin: auto;
+    /*grid-template-columns: 1fr 1fr;*/
+    /*grid-gap: 0px;*/
+    width: 700px;
 }
+
+.login_signin_label {
+    text-align: left;
+}
+
+.login_signin_input {
+    border: 2px solid black;
+    padding-bottom: 10px;
+    border-radius: 20px ;
+}
+
+#password_confirmation {
+    padding-bottom: 20px;
+}
+
+.login_signin_button {
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: #5b7f01;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.login_buttons_div {
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+/*/////////////signup///////login/////////////////////*/
+
 
 
 #booking-cont{
@@ -195,13 +243,7 @@ width:auto;
     font-size: 80px;
 }
 
-#loginform{
-    /*text-decoration-style:*/
-    padding-left:20px;
-    display: flex;
-    flex-direction: column;
-    width: 300px; /* Set a fixed width for consistent layout */
-}
+
 
 #displayBookingForm{
     padding-left:20px;
@@ -226,11 +268,6 @@ width:auto;
     width: 250px;
 }
 
-#loginbutton{
-    width:100px;
-    padding-top: 5px;
-    margin: 0 auto;
-}
 
 .logintext{
     font-size:40px;
@@ -266,24 +303,10 @@ select{
 
 }
 
-/* Styling for the button */
-button {
-    padding: 10px 20px; /* Padding for a larger button */
-    font-size: 16px;
-    border: none;
-    border-radius: 10px; /* Rounded corners for the button */
-    background-color: #5b7f01; /* Green background for the button */
-    color: white; /* White text on the button */
-    cursor: pointer; /* Change cursor to indicate clickable */
-}
 
 
 
-.button-container {
-    display: flex;
-    justify-content: flex-start; /* Aligns items to the left */
-    align-items: center; /* Aligns items vertically in the center */
-}
+
 /* Hover effect for the button */
 button:hover {
     background-color: #2c5923; /* Slightly darker green on hover */
@@ -385,17 +408,6 @@ li a:hover {
     margin-left:20px;
 }
 
-.signup-button {
-    padding: 10px 20px; /* Padding for a larger button */
-    font-size: 16px; /* Font size for the text */
-    border: none; /* No border */
-    border-radius: 10px; /* Rounded corners */
-    background-color: #5b7f01; /* Green background */
-    color: white; /* White text */
-    text-decoration: none; /* Remove underline */
-    cursor: pointer; /* Change cursor to indicate clickable */
-    display: inline-block; /* Ensure the an*/
-}
 
 .signup-button:hover {
     background-color: #4a6b00; /* Darken color on hover */
