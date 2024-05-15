@@ -68,7 +68,7 @@ try {
     <?php else: ?>
         <p>No Cars Found.</p>
     <?php endif; ?>
-    <li><a class="button" id="addCar" href="addCar.php">add Car</a></li>
+    <a class="button" id="addCar" href="addCar.php">add Car</a>
 <!--    <li><a href="removeCars.php">Remove Car</a></li>-->
 </div>
 </body>
