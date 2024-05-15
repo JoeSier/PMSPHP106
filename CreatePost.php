@@ -31,21 +31,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 ?>
 <body>
-<div class="dashContent">
-    <h1>Create a New Post</h1>
-    <form method="post" action="">
+<div class="box">
+    <h1 class="h1">Create a New Post</h1>
+    <form class="form" method="post" action="">
         <div>
-            <label for="post_title">Title:</label>
-            <input type="text" id="post_title" name="post_title" required minlength="3" maxlength="100">
+            <label class="label" for="post_title">Title:</label>
+            <input class="input" type="text" id="post_title" name="post_title" required minlength="3" maxlength="100">
         </div>
 
         <div>
-            <label for="post_content">Content:</label>
+            <label class="label" for="post_content">Content:</label>
             <textarea id="post_content" name="post_content" rows="6" required minlength="10"></textarea>
         </div>
 
         <div>
-            <button type="submit">Create Post</button>
+            <button class="button" type="submit">Create Post</button>
         </div>
     </form>
 

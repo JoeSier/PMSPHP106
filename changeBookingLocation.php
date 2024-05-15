@@ -6,10 +6,10 @@ include('sidebar.php');
 <body>
 <div class="dashContent">
 <h1> Change Location of a booking</h1>
-    <div id="loginform" class="dashContent">
-        <form method="post">
-            <label for="License">Car license:</label>
-            <select name="License" id="License">
+    <div id="loginform" class="box">
+        <form method="post" class="form">
+            <label class="label" for="License">Car license:</label>
+            <select class="input" name="License" id="License">
                 <option value="">Select a car to remove</option>
                 <?php
                 // Populate the select field with the user's cars
@@ -19,7 +19,7 @@ include('sidebar.php');
                 }
                 ?>
             </select>
-            <button type="submit">Remove Car</button>
+            <button class="button" type="submit">Remove Car</button>
         </form>
         <?php if ($successMessage): ?>
             <div class="successMessage"><?php echo htmlspecialchars($successMessage); ?></div>

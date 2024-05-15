@@ -12,11 +12,12 @@ if (empty($freeSpaces) || empty($form1_data)) {
 ?>
 <!--shows the available parking spaces and redirects to finalize_booking-->
 
-<form method="post" action="submit_booking_request.php"> <!-- Finalize booking in a new page -->
-    <input type="hidden" name="form_type" value="form2">
+<div class="box">
+<form class="form" method="post" action="submit_booking_request.php"> <!-- Finalize booking in a new page -->
+    <input class="input" type="hidden" name="form_type" value="form2">
 
-    <label for="parking_space">Select Parking Space (Optional):</label>
-    <select name="parking_space" id="parking_space">
+    <label class="label h1" for="parking_space">Select Parking Space:</label>
+    <select class="input" name="parking_space" id="parking_space">
         <option value="">Choose a space (optional)</option> <!-- Changed to optional -->
         <?php
         foreach ($freeSpaces as $space) {
@@ -26,6 +27,8 @@ if (empty($freeSpaces) || empty($form1_data)) {
 
     </select><br>
 
-    <button type="submit">Submit</button>
+    <button class="button" type="submit">Submit</button>
+
 </form>
 
+</div>

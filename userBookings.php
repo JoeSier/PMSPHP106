@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <body>
-<div class="dashContent">
+<div class="box">
     <h2>Your Bookings</h2>
 
     <?php if (count($bookings) > 0): ?>

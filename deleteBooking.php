@@ -166,10 +166,10 @@ EOD;
     </style>
 </head>
 <body>
-<div class="dashContent">
-    <form method="post" action="">
-        <label for="user_select">Select a user:</label>
-        <select id="user_select" name="user_select" required>
+<div class="box_dash">
+    <form class="form" method="post" action="">
+        <label class="h2" for="user_select">Select a user:</label>
+        <select class="input" id="user_select" name="user_select" required>
             <option value="">-- Select a user --</option>
             <?php foreach ($userNames as $user) : ?>
                 <option value="<?php echo $user["UserID"]; ?>" <?php echo $user["UserID"] == $selectedUserId ? 'selected' : ''; ?>>
@@ -177,21 +177,21 @@ EOD;
                 </option>
             <?php endforeach; ?>
         </select>
-        <button type="submit">Submit</button>
+        <button class="button" type="submit">Submit</button>
     </form>
 
     <!-- New form to display user's bookings and allow deletion -->
     <?php if (!empty($bookings)) : ?>
-        <form method="post" action="">
-            <input type="hidden" name="booking_select" value="<?php echo $selectedBookingID; ?>">
-            <label for="booking_select">Select a Booking:</label>
-            <select id="booking_select" name="booking_select" required>
+        <form class="form" method="post" action="">
+            <input class="input" type="hidden" name="booking_select" value="<?php echo $selectedBookingID; ?>">
+            <label id="h2" for="booking_select">Select a Booking:</label>
+            <select class="input" id="booking_select" name="booking_select" required>
                 <option value="">-- Select a booking --</option>
                 <?php foreach ($bookings as $booking) : ?>
                     <option value="<?php echo $booking["BookingID"]; ?>"><?php echo $booking["LotName"] . " - " . $booking["timeStart"] . " to " . $booking["timeEnd"]; ?></option>
                 <?php endforeach; ?>
             </select>
-            <button type="submit" name="delete_booking">Delete</button>
+            <button class="button" type="submit" name="delete_booking">Delete</button>
         </form>
     <?php endif; ?>
 </div>

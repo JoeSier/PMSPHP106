@@ -32,9 +32,9 @@ try {
 ?>
 
 <body>
-<div class="dashContent">
+<div class="box_dash_other">
 
-    <h1>All Cars</h1>
+    <h1 class="h1">All Cars</h1>
 
     <?php if (isset($errorMessage)): ?>
         <div style="color: red;">
@@ -56,10 +56,10 @@ try {
                     <td><?= htmlspecialchars($row['LicensePlate']) ?></td>
                     <td><?= htmlspecialchars($row['CarType']) ?></td>
                     <td>
-                        <form method="post">
+                        <form class="form" method="post">
                             <!-- Use LicensePlate to identify the car to be removed -->
-                            <input type="hidden" name="LicensePlate" value="<?= htmlspecialchars($row['LicensePlate']) ?>">
-                            <button type="submit">Remove</button>
+                            <input class="input" type="hidden" name="LicensePlate" value="<?= htmlspecialchars($row['LicensePlate']) ?>">
+                            <button id="remove_car" type="submit">Remove</button>
                         </form>
                     </td>
                 </tr>

@@ -12,6 +12,28 @@ h1{
     padding-top: 20px;
 }
 
+.h1{
+    font-size: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.h2{
+    font-size: 34px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#h2 {
+    font-size: 34px;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+#all_bookings {
+    padding-bottom: 20px;
+}
+
 .cc-selector input{
     padding:0;
     margin-left:50px;
@@ -117,11 +139,47 @@ width:auto;
     width: 70%;
 }
 
+
+
+.table {
+    padding-bottom: 50px;
+}
+
 .child2 {
     width: 30%;
     margin-left: 0%;
 }
+#btn_delete{
+    margin-right: 490px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+#acc_btn{
+    margin-right: 490px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
 
+#block{
+    /*margin-right: 490px;*/
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#delete{
+    /*margin-right: 490px;*/
+    border-radius: 10px;
+    margin-top: 20px;
+}
+#reserve{
+    /*margin-right: 490px;*/
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.text {
+    font-size: 20px;
+}
 #home_Box{
     background-color: rgb(91, 127, 1);
     height:700px;
@@ -191,6 +249,32 @@ width:auto;
     width: 700px;
 }
 
+.box_dash{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /*background-color: rgb(91, 127, 1);*/
+    /*height:700px;*/
+    /*display: grid;*/
+    text-align: center;
+    margin-left: 750px;
+    /*grid-template-columns: 1fr 1fr;*/
+    /*grid-gap: 0px;*/
+    width: 700px;
+}
+
+.box_dash_other{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /*background-color: rgb(91, 127, 1);*/
+    /*height:700px;*/
+    /*display: grid;*/
+    /*text-align: center;*/
+    margin-left: 400px;
+    /*grid-template-columns: 1fr 1fr;*/
+    /*grid-gap: 0px;*/
+    width: 700px;
+}
+
 .label {
     text-align: left;
 }
@@ -232,6 +316,17 @@ width:auto;
     padding-left: 20px;
 }
 
+#change_book {
+    font-size: 20px;
+    background-color: white;
+    text-decoration: none;
+}
+
+#remove_car {
+    font-size: 20px;
+    background-color: white;
+    text-decoration: none;
+}
 /*/////////////signup///////login/////////////////////*/
 
 
@@ -376,9 +471,7 @@ li a:hover {
 
 }
 
-.grid {
-    font-size: 30px;
-}
+
 
 #chart-area{
     width:1000px;

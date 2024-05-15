@@ -37,11 +37,11 @@ if ($res) {
 ?>
 </div>
 <body>
-<div class="dashContent">
-<a href="addCar.php">add Cars</a>
+<div class="dashContent login_buttons_div">
+<a class="button" href="addCar.php">add Cars</a>
 
     <br>
-<a href="removeCars.php">remove Cars</a>
+<a class="button" href="removeCars.php">remove Cars</a>
 </div>
 
 </body>

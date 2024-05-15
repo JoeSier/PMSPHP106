@@ -75,15 +75,15 @@ print_r($BookingID);
 
 ?>
 
-<div class="dashContent">
+<div class="box">
     <h1>Edit Booking: <?= htmlspecialchars($BookingID) ?></h1>
 
-    <form method="post">
-        <input type="hidden" name="form_type" value="form2">
-        <input type="hidden" name="BookingID" value="<?= htmlspecialchars($BookingID) ?>">
+    <form class="form" method="post">
+        <input class="input" type="hidden" name="form_type" value="form2">
+        <input class="input" type="hidden" name="BookingID" value="<?= htmlspecialchars($BookingID) ?>">
 
-        <label for="parking_space">Select Parking Space:</label>
-        <select name="parking_space" id="parking_space">
+        <label class="label" for="parking_space">Select Parking Space:</label>
+        <select class="input" name="parking_space" id="parking_space">
             <option value="">Choose a space</option>
             <?php
             foreach ($freeSpaces as $space) {
@@ -92,7 +92,7 @@ print_r($BookingID);
             ?>
         </select><br>
 
-        <button type="submit">Submit</button>
+        <button class="button" type="submit">Submit</button>
     </form>
 </div>
 

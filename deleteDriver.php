@@ -130,18 +130,18 @@ EOD;
     </style>
 </head>
 <body>
-<div class="dashContent">
+<div class="box_dash">
     <form method="post" action="">
-        <label for="user_select">Select a user:</label>
-        <select id="user_select" name="user_select" required>
-            <option value="">-- Select a user --</option>
+        <label class="h2" for="user_select">Select a user:</label>
+        <select class="input"  name="user_select" required>
+            <option class="input" value="">-- Select a user --</option>
             <?php foreach ($userNames as $user) : ?>
                 <option value="<?php echo $user["UserID"]; ?>" <?php echo $user["UserID"] == $selectedUserId ? 'selected' : ''; ?>>
                     <?php echo $user["Firstname"] . " " . $user["Surname"] . " (" . $user["Email"] . ")"; ?>
                 </option>
             <?php endforeach; ?>
         </select>
-        <button type="submit">Submit</button>
+        <button class="button"  type="submit">Submit</button>
     </form>
 
     <!-- New form to display user's bookings and allow deletion -->

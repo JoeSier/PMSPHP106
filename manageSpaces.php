@@ -4,15 +4,15 @@ include('sidebar.php');
 ?>
 
 <body>
-<div class="dashContent">
+<div class="box_dash">
 <!--    <a href="changeBookingLocation.php"> change assigned location</a>-->
     <br>
-    <h1>Manage bookings</h1>
-    <a href="booking.php"> Reserve a space</a>
+    <h1 class="h1">Manage bookings</h1>
+    <a class="button" id="reserve" href="booking.php"> Reserve a space</a>
     <br>
-    <a href="booking.php"> block a space</a>
+    <a class="button" id="block" href="booking.php"> Block a space</a>
     <br>
-    <a href="deleteBooking.php"> Delete Booking</a>
+    <a class="button" id="delete" href="deleteBooking.php"> Delete Booking</a>
 
 
 

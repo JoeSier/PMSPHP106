@@ -16,9 +16,9 @@ if ($result === false) {
 
 
 <body>
-<div class="dashContent">
+<div class="box_dash_other">
 
-    <h1>All bookings</h1>
+    <h1 class="h1" id="all_bookings">All bookings</h1>
 
     <!-- Check if there are any bookings -->
     <?php if ($result->num_rows > 0): ?>
@@ -55,7 +55,7 @@ if ($result === false) {
                             <input type="hidden" name="timeStart" value="<?= $row['timeStart'] ?>">
                             <input type="hidden" name="timeEnd" value="<?= $row['timeEnd'] ?>">
                             <input type="hidden" name="LotName" value="<?= $row['LotName'] ?>">
-                            <button type="submit">Change</button>
+                            <button id="change_book" type="submit">Change</button>
                         </form>
 
                     </td>

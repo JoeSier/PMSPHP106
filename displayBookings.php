@@ -155,9 +155,10 @@ if ($selectedParkingLot) {
     </style>
 </head>
 <body>
-<div class="dashContent">
-    <form method="post" id="bookingForm">
-        <select name="parkingLot" id="parkingLot">
+<div class="box_dash">
+    <h1 class="h1">See parking spots usage</h1>
+    <form class="form" method="post" id="bookingForm">
+        <select class="input" name="parkingLot" id="parkingLot">
             <option value="">Select a Parking Lot</option>
             <?php
             foreach ($parkingLots as $lot) {
@@ -166,32 +167,32 @@ if ($selectedParkingLot) {
             }
             ?>
         </select>
-        <button type="submit">Submit</button>
+        <button class="button" type="submit">Submit</button>
     </form>
 </div>
 
-<div class="dashContent">
-    <button id="previous" class="topSpace" onclick="showPrevious()">Previous</button>
-    <button id="next" class="topSpace" onclick="showNext()">Next</button>
-</div>
+<!--<div class="login_buttons_div">-->
+<!--    <button class='button' id="previous" onclick="showPrevious()">Previous</button>-->
+<!--    <button  id="next" class="button" onclick="showNext()">Next</button>-->
+<!--</div>-->
 
-<div class="dashContent">
+<div class="box chart">
     <div id="chart-area">
         <?php echo $chartHTML; ?>
     </div>
 </div>
 
-<div class="dashContent">
+<div class="box_dash" >
     <?php
     if ($selectedParkingLot) {
         echo "<p>Total Spaces: $totalSpaces</p>";
 
         // Display date selection form
-        echo "<form method='post' id='dateForm'>";
+        echo "<form class='form' method='post' id='dateForm'>";
         echo "<input type='hidden' name='parkingLot' value='" . htmlspecialchars($selectedParkingLot) . "'>";
-        echo "<label for='selectedDate'>Select a Date:</label>";
+        echo "<label class='label' for='selectedDate'>Select a Date:</label>";
         echo "<input type='date' name='selectedDate' id='selectedDate' value='" . htmlspecialchars($selectedDate) . "'>";
-        echo "<button type='submit'>Submit</button>";
+        echo "<button class='button' type='submit'>Submit</button>";
         echo "</form>";
 
         // Display occupied spaces for the selected date
@@ -199,7 +200,7 @@ if ($selectedParkingLot) {
             echo "<p>Occupied Spaces on " . htmlspecialchars($selectedDate) . ": $occupiedSpacesOnSelectedDate</p>";
         }
     } else {
-        echo "<p>Select a parking lot to view details.</p>";
+        echo "<p></p>";
     }
     ?>
 </div>

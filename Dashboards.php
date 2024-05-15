@@ -8,7 +8,7 @@ include('sidebar.php');
 
 <body>
 
-<div class="dashContent">
+<div class="box_dash">
 
 <!--    code for user-->
     <?php if (isset($user) && $user["IsAdmin"] == 0): ?>

@@ -15,8 +15,8 @@ $accounts = getAccounts($mysqli);
 ?>
 
 <body>
-<div class="dashContent">
-    <h1>All Accounts</h1>
+<div class="box_dash_other">
+    <h1 class="h1">All Accounts</h1>
 
     <?php if (isset($errorMessage)): ?>
         <div style="color: red;">
@@ -25,7 +25,7 @@ $accounts = getAccounts($mysqli);
     <?php endif; ?>
 
     <?php if ($accounts && $accounts->num_rows > 0): ?>
-        <table border="1">
+        <table class="table_acc" border="1">
             <tr>
                 <th>User ID</th>
                 <th>Admin</th>
@@ -57,9 +57,9 @@ $accounts = getAccounts($mysqli);
             <?php endwhile; ?>
         </table>
     <?php else: ?>
-        <p>No Accounts Found.</p>
+        <p class="text">No Accounts Found.</p>
     <?php endif; ?>
-    <a href="deleteDriver.php"> Delete Driver Account</a>
+    <a id="acc_btn" class = "button" href="deleteDriver.php"> Delete an Account</a>
 
 
 </div>
