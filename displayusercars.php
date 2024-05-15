@@ -32,7 +32,7 @@ try {
 ?>
 
 <body>
-<div class="box">
+<div class="box_dash_other">
 
     <h1>All Cars</h1>
 
@@ -68,7 +68,7 @@ try {
     <?php else: ?>
         <p>No Cars Found.</p>
     <?php endif; ?>
-    <li><a class="button" href="addCar.php">add Car</a></li>
+    <li><a  href="addCar.php">add Car</a></li>
 <!--    <li><a href="removeCars.php">Remove Car</a></li>-->
 </div>
 </body>
