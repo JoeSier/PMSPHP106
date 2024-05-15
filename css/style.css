@@ -99,39 +99,70 @@ width:auto;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-#homebox{
+
+/*/////////////////homepage/////////////////////////*/
+#homeH1 {
+    color: white;
+    font-size: 50px;
+    width: 650px;
+    padding-right:40px;
+}
+
+.child1 {
+    width: 70%;
+}
+
+.child2 {
+    width: 30%;
+    margin-left: 0%;
+}
+
+#home_Box{
     background-color: rgb(91, 127, 1);
     height:700px;
-    display: flex;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px;
+    width: 100%;
     /*box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);*/
 }
 
-#homeSeperator{
+#home_Seperator{
     background-color: rgb(126, 193, 8);
     height:90px;
 }
 
-#homeimage{
-    /*height: 400px;*/
-    /*width:400px;*/
-    /*height:80%;*/
-    /*width:50%;*/
-   width: auto;
-    height:60%;
-    margin-top:80px;
-    margin-left:200px;
+#home_Image{
+    height: 300%;
+    width: 300%;
     z-index:1;
-    border-radius: 15px; /* Rounded corners */
-    border: 2px solid #000; /* Solid border with 2px thickness */
+    border-radius: 15px;
 }
 
-#homeText{
-    margin-left:30%;
+#home_Text_div{
+    margin-left:20%;
     /*margin-right:60%;*/
+    padding-right:20px;
+    padding-top: 150px;
+    padding-bottom:10%;
+    width: 500px;
+    text-align: center;
+
+}
+
+#home_Text {
+    margin-left:10%;
     padding-right:20px;
     padding-top:10%;
     padding-bottom:10%;
+    align-content: center;
+    width: 500px;
+    font-size: 30px;
 }
+
+/*/////////////////homepage/////////////////////////*/
+
 
 #loginbox{
     padding-top:10%;
@@ -157,6 +188,7 @@ width:auto;
     flex-direction: column;
     width: 300px; /* Set a fixed width for consistent layout */
 }
+
 
 .title{
     color: #5a7f01;
@@ -256,23 +288,7 @@ button {
 button:hover {
     background-color: #2c5923; /* Slightly darker green on hover */
 }
-/*nav ul li{*/
-/*    display:flex;*/
-/*    color: white;*/
-/*    text-decoration: none;*/
-/*    text-transform: capitalize;*/
-/*    padding: 15px 30px;*/
-/*    transition: all .2s ease;*/
-/*    z-index: 1;*/
-/*}*/
 
-/*!*.nav-container{*!*/
-/*!*    display:inline-block;*!*/
-/*!*}*!*/
-
-/*nav ul{*/
-/*    display:inline-block;*/
-/*}*/
 .sideSpace{
     margin-left:10px;
 }

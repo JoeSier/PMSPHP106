@@ -1,4 +1,5 @@
 <?php
+global $mysqli;
 include('partial/header.php');
 include('sidebar.php');
 
