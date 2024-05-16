@@ -61,6 +61,7 @@ if ($result === false) {
                     <td>
                     <form action="deny_booking.php" method="post">
                         <input type="hidden" name="BookingID" value="<?= $row['BookingID'] ?>">
+                        <input type="hidden" name="UserID" value="<?= $row['UserID'] ?>">
                         <button type="submit" value="deny">Deny</button>
                     </form>
                 </td>

@@ -274,6 +274,15 @@ ALTER TABLE `replies`
     ADD CONSTRAINT `replies_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE;
 COMMIT;
 
+--
+-- Constraints for table 'requestedbooking'
+--
+
+ALTER TABLE `requestedbookings`
+    ADD CONSTRAINT `requestedbooking_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `account` (`UserID`) ON DELETE CASCADE,
+    ADD CONSTRAINT `requestedbooking_ibfk_2` FOREIGN KEY (`LotName`) REFERENCES `parkinglots` (`LotName`) ON DELETE CASCADE;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

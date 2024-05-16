@@ -21,20 +21,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($stmt->execute()) {
         echo "Booking successfully made!";
-        $stmt = $mysqli->prepare("DELETE FROM requestedbookings WHERE BookingID = ?");
-        $stmt->bind_param("i", $booking_id);
+        $stmr = $mysqli->prepare("DELETE FROM requestedbookings WHERE BookingID = ?");
+        $stmr->bind_param("i", $booking_id);
 
-        if ($stmt->execute()) {
-//            echo "Requested booking removed.";
-        } else {
-            echo "Error removing requested booking: " . $stmt->error;
-        }
-        $mail = require __DIR__ . "/mailer.php";
-
-        $mail->setFrom("parklyuser@outlook.com");
-        $mail->addAddress($user["Email"]);
-        $mail->Subject = "Booking Successful";
-        $mail->Body = <<<EOD
+        if($stmr->execute()){
+            $stme = $mysqli->prepare("SELECT Email FROM account WHERE UserID=?");
+            $stme->bind_param("i", $user_id);
+            $stme->execute();
+            $emailResult = $stme->get_result();
+            $emailRow = $emailResult->fetch_assoc();
+            $email = $emailRow["Email"];
+            $mail = require __DIR__ . "/mailer.php";
+            $mail->setFrom("parklyuser@outlook.com");
+            $mail->addAddress($email);
+            $mail->Subject = "Booking Successful";
+            $mail->Body = <<<EOD
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -52,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <tr><td style="height:80px;">&nbsp;</td></tr>
                     <tr>
                         <td style="text-align:center;">
-                          <img width="60" src="https://imgur.com/gallery/Nqam9Gi.png" alt="Logo">
+                          <img width="60" src="/img/logoLeft.png" alt="Logo">
                         </td>
                     </tr>
                     <tr><td style="height:20px;">&nbsp;</td></tr>
@@ -63,12 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <tr>
                                     <td style="padding:0 35px;">
                                         <h1>Booking Successful</h1>
-                                        <p>Your Parking space is booked for: <strong>{$desiredStart}</strong></p>
-                                        <p>Space: <strong>{$parking_space}</strong></p>
+                                        <p>Your Parking space is booked for: <strong>{$time_start}</strong></p>
+                                        <p>Space: <strong>{$parking_space_id}</strong></p>
+                                        <p>Lot: <strong>{$lot_name}</strong></p>
                                         <p>
                                             To manage your booking, log in and go to your dashboard:
                                         </p>
-                                        <a href="https://localhost/dashboards.php" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Manage Booking</a>
+                                        <a href="https://localhost/index.php" style="background:#20e277;text-decoration:none; color:#fff; padding:10px 24px; border-radius:50px; display:inline-block;">Manage Booking</a>
                                     </td>
                                 </tr>
                                 <tr><td style="height:40px;">&nbsp;</td></tr>
@@ -84,17 +86,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </body>
 </html>
 EOD;
+            try {
 
-        try {
+                $mail->send();
 
-            $mail->send();
+            } catch (Exception $e) {
 
-        } catch (Exception $e) {
+                echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
+                exit;
 
-            echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
-            exit;
-
-        }
+            }}
 
     } else {
         echo "Error adding booking: " . $mysqli->error;
