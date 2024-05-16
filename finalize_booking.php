@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $lot_name = $_POST['LotName'];
 
     $stmt = $mysqli->prepare("INSERT INTO booking(UserID, ParkingSpaceID, LicensePlate, BookingCost, timeStart, timeEnd, LotName) VALUES(?,?,?,?,?,?,?)");
-    $stmt->bind_param("iisisss", $user_id, $parking_space_id, $license_plate, $booking_cost, $time_start, $time_end, $lot_name);
+    $stmt->bind_param("iisdsss", $user_id, $parking_space_id, $license_plate, $booking_cost, $time_start, $time_end, $lot_name);
 
     if ($stmt->execute()) {
         echo "Booking successfully made!";
