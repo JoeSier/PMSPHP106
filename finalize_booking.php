@@ -114,7 +114,7 @@ EOD;
 
         if ($stmt) { // Check if preparation was successful
             // Bind parameters
-            $stmt->bind_param("ii", $newCredit, $user_id);
+            $stmt->bind_param("di", $newCredit, $user_id);
 
             // Execute the query and check for success
             if ($stmt->execute()) {
