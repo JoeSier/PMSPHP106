@@ -57,7 +57,6 @@ if ($result === false) {
                             <input type="hidden" name="LotName" value="<?= $row['LotName'] ?>">
                             <button id="change_book" type="submit">Change</button>
                         </form>
-
                     </td>
                 </tr>
             <?php endwhile; ?>

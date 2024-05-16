@@ -169,9 +169,12 @@ if ($selectedParkingLot) {
         </select>
         <button class="button" type="submit">Submit</button>
     </form>
+    <br>
+    <button class='button' id="previous" onclick="showPrevious()">Previous</button>
+    <button  id="next" class="button" onclick="showNext()">Next</button>
 </div>
 
-<!--<div class="login_buttons_div">-->
+<!--<div class="box_dash">-->
 <!--    <button class='button' id="previous" onclick="showPrevious()">Previous</button>-->
 <!--    <button  id="next" class="button" onclick="showNext()">Next</button>-->
 <!--</div>-->

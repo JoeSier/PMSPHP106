@@ -1,7 +1,7 @@
 
 <?php
-if (isset($user) && $user["IsAdmin"] ==0 || null){
-    die("you are not allowed here.");
+if (!isset($user) || $user["IsAdmin"] == 0) {
+    die("You are not allowed here.");
 }
 include('partial/header.php');
 include('sidebar.php');

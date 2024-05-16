@@ -72,7 +72,7 @@ $mysqli->close();
 
 <body>
 <div class="box_dash_other">
-    <h1>Add a New Car</h1>
+    <h1>Add a New Parking Lot</h1>
     <div id="loginform">
         <form method="post" id="addLotForm">
             <label class="label" for="Name">Enter name of parking lot:</label>

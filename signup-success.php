@@ -5,7 +5,7 @@ include('partial/header.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <h1>Signup</h1>
+    <title>Signup</title>
     <meta charset="UTF-8">
 </head>
 <body>

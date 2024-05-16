@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $success = $delete_stmt->execute();
 
     if ($success) {
-        $successMessage = "Car removed successfully!";
+        $successMessage = "lot removed successfully!";
     } else {
         $successMessage = "Error removing car.";
     }

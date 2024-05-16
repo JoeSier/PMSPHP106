@@ -34,7 +34,7 @@ include('sidebar.php');
             if ($result->num_rows > 0) {
                 // Display notification for bookings where users haven't arrived
                 echo '<div class="notification">';
-                echo '<p>Bookings where users havent arrived an hour after start:</p>';
+                echo '<p>Bookings where users have not arrived an hour after start:</p>';
                 echo '<ul>';
                 while ($row = $result->fetch_assoc()) {
                     echo '<li>Booking ID: ' . htmlspecialchars($row['BookingID']) . ', Lot Name: ' . htmlspecialchars($row['LotName']) . '</li>';
