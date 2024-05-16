@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['form_type'] === 'form2') {
         $stmt->bind_param("iisdsss", $userID, $parking_space, $license_plate, $price, $desiredStart, $desiredEnd, $lotName);
 
         // Execute and check for errors
-        if ($stmt->execute()) {
-            echo "Your parking request has been sent. Our team will review it and get back to you soon.";
+//        if ($stmt->execute()) {
+//            echo "Your parking request has been sent. Our team will review it and get back to you soon.";
             // Execute and check for errors
             if ($stmt->execute()) {
                 echo "Your parking request has been sent. Our team will review it and get back to you soon.";

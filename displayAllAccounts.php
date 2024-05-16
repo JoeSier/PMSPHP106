@@ -136,7 +136,7 @@ EOD;
                     <td>
                         <form method="post">
                             <input type="hidden" name="UserID" value="<?= htmlspecialchars($row['UserID']) ?>">
-                            <button type="submit">Remove</button>
+                            <button id="change_book" type="submit">Remove</button>
                         </form>
                     </td>
                 </tr>
