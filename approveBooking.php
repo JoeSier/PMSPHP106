@@ -1,11 +1,12 @@
 
 <?php
-if (!isset($user) || $user["IsAdmin"] == 0) {
-    die("You are not allowed here.");
-}
+
 include('partial/header.php');
 include('sidebar.php');
 
+if (!isset($user) || $user["IsAdmin"] == 0) {
+    die("You are not allowed here.");
+}
 $query = "SELECT * FROM requestedbookings";
 $result = $mysqli->query($query);
 
