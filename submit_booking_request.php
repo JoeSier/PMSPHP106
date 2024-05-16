@@ -112,8 +112,8 @@ EOD;
         $stmt->close();
     } else {
         echo "Error preparing statement: " . $mysqli->error;
-    }
 }
+
 
 
 
