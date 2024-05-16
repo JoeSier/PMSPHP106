@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <tr><td style="height:80px;">&nbsp;</td></tr>
                     <tr>
                         <td style="text-align:center;">
-                          <img width="60" src="/img/logoLeft.png" alt="Logo">
+                          <img width="120" src="https://i.imgur.com/FAhHQ3G.png" alt="Logo">
                         </td>
                     </tr>
                     <tr><td style="height:20px;">&nbsp;</td></tr>
