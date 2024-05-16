@@ -90,7 +90,7 @@ $mysqli->close();
 
     <h2 class="h2">Choose location:</h2>
 
-    <div id="map" style="height: 400px; width: 70%; margin-bottom: 20px;"></div>
+    <div id="map" style="height: 400px; width: 1450px; margin-bottom: 20px;"></div>
 </div>
 
 <script>
